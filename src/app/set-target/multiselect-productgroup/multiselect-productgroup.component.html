@@ -1,0 +1,51 @@
+<clr-dropdown class="spaceB">
+
+        <button clrDropdownTrigger type="button" class="menu-button nomargin" [disabled]="isDisabled" [ngClass]="{'btn-disabled': isDisabled}">
+            <div class="row flex-items-xs-between" *ngIf="checkedList.length === 0" style="margin:0;">
+                <div class="smallHeading " style="margin-bottom: 5px;text-align: left; padding-top: 5px;color: white"  > Select Product Group
+                </div>
+                <span>
+                    <clr-icon style="float:right" shape="caret down" class="iconDropdown " clrDropdownTrigger></clr-icon>
+                </span>
+            </div> 
+            <div class="clr-row flex-items-xs-between" *ngIf="checkedList.length > 0" style="margin:0;padding-top:5px">
+                <ul class="select-content">
+                    <ng-container *ngFor="let item of checkedList; let i = index">
+                        <ng-container  *ngIf="i < maxItemToDisplay">
+                            <li class="selected-option smallSubText selected-border" >
+                                <span>{{item.prodGroupDescp}} </span>
+                                <span (click)="removeSelected(i, item)">
+                                    <clr-icon shape="times" size="12"></clr-icon>
+                                </span>
+                            </li>
+                        </ng-container>
+                    </ng-container>
+                </ul>
+                <div style="position: absolute;
+            right: 7%;" *ngIf="checkedList.length > maxItemToDisplay"> +{{checkedList.length - maxItemToDisplay}} </div>
+            </div>   
+          
+                <clr-icon shape="caret down"  style="float:right" class="iconDropdown " clrDropdownTrigger></clr-icon> 
+        </button> 
+        <clr-dropdown-menu *clrIfOpen [clrPosition]="menuPosition" class="menu-dropdown" >
+            <!-- <div class="searchSpace" >
+                <div class="searchLine">
+                    <input type="text" [(ngModel)]="searchTxt" class="smallHeading  searchInput" size="45" placeholder="Search">
+                    <clr-icon *ngIf="!searchTxt || searchTxt.length === 0" shape="search" [ngClass]="theme === 'dark' ? 'is-inverse' : ''"></clr-icon>
+                    <clr-icon *ngIf="searchTxt.length" shape="times" [ngClass]="theme === 'dark' ? 'is-inverse' : ''" (click)="searchTxt=''"></clr-icon>
+                </div>
+            </div> -->
+            <div class="row scroll option-scroll">
+                
+                    <div class="clr-row" *ngFor="let option of options; let i = index">
+                            <input type="checkbox" clrCheckbox [(ngModel)]="option.checked" id="{{option.prodGroupId}}" (change)="onChangeOfOption(option)">
+                            <label class="subText " for="{{option.prodGroupId}}">{{option.prodGroupDescp}}</label>
+                    </div>
+                    
+               
+            </div>
+            <!-- <div *ngIf="showClear">
+                <button class="clear-btn subText color9" type="button" [disabled]="checkedList && checkedList.length === 0" (click)="clearOptions()">CLEAR</button>
+            </div> -->
+        </clr-dropdown-menu>
+      </clr-dropdown>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cost Interlock</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    Dell = window.Dell || {};
+    Dell.Metrics = Dell.Metrics || {};
+    Dell.Metrics.sc = Dell.Metrics.sc || {};
+    Dell.Metrics.sc.country = "us"; /***dynamic value based on site***/
+    Dell.Metrics.sc.language = "en"; /***dynamic value based on site***/
+    Dell.Metrics.sc.segment = "corp"; /***always set as corp***/
+    Dell.Metrics.sc.customerset = ""; /***dynamic value based on site or empty string***/
+    Dell.Metrics.sc.cms = "dsc";
+    Dell.Metrics.sc.isspa = true; /** this is true to supress first call if it is single page application*/
+    Dell.Metrics.sc.userid="";/*** whatever is finally decided as the best way to capture, Please note user name should not be captured in this property which is against PII. We can use Work day API https://employee-api.ausmpc.pcf.dell.com/api/employee/NT_username e.g. John_T ****/
+    Dell.Metrics.sc.userrole="Default";/***set appropriate user role based on user ***/
+    Dell.Metrics.sc.persona="";
+    Dell.Metrics.sc.loggedin="true"; /** if user is not logged in then set to empty string***/
+    Dell.Metrics.sc.contenttype="html";
+    Dell.Metrics.sc.pagename ="us|en|corp|dsc|dashboard-summaryView"; /***relevant unique page name or empty string***/
+    Dell.Metrics.sc.applicationname = "sCMP"; /***relevant application name***/
+    Dell.Metrics.sc.isspa=true;
+    </script>
+    <script src="//nexus.ensighten.com/dell/internalDev/Bootstrap.js"></script>
+</head>
+<body style="background-color: #26262B; margin: auto; overflow-x: hidden;">
+  <app-root></app-root>
+</body>
+</html>

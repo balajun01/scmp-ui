@@ -1,0 +1,82 @@
+.commodity-allocation-parent-div{
+  margin-top: 2%;
+  background-color: #373845;
+  padding-bottom: 2%;
+  margin-bottom: 2%;
+}
+.commodity-allocation-parent-header {
+  padding: 2% 2% 2% 2%; 
+  margin: 0% 0% 0% 0%;
+  border-bottom: 1px solid;
+}
+.commodity-allocation-child-div{
+  padding: 2% 4% 2% 4%; 
+  margin: 0% 0% 0% 0%;
+}
+.commodity-allocation-child-header{
+  overflow-x:scroll; 
+  position: relative;
+  border-collapse: collapse;
+  border: 0.5px grey solid;
+}
+.commodity-allocation-parent-header-font{
+  color: #FFFFFF;
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 300;
+}
+.commodity-table {
+   width: 100%;
+   position: relative;
+   margin-top: 0rem !important;
+ }
+.commodity-table > thead > tr > th:first-child, 
+.commodity-table > tbody > tr > th:first-child,
+.commodity-table > tbody > tr > td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 9;
+  background-color: #26262B;
+}
+
+.commodity-table > thead > tr > th:nth-last-child(1) > table > tr > th:nth-last-child(1), 
+.commodity-table > tbody > tr > th:nth-last-child(1) > table > tr > td:nth-last-child(1),
+.commodity-table > tbody > tr > td:nth-last-child(1) > table > tr > td:nth-last-child(1) {
+  position: sticky;
+  right: 0;
+  background-color: #26262B;
+  z-index: 9;
+}
+
+.commodity-table thead tr, .commodity-table th, .commodity-table tr td, .commodityAllocationHeader {   
+  border: solid grey 0.5px;
+  width: 100%;
+  font-size: 11px;
+  color: #fafafa;
+}
+.commodityAllocationBody {
+  width:180px;
+  display: flex;
+}
+.commodityAllocationSpan{
+  text-align: center;
+  width: 50%;
+  white-space: nowrap;
+}
+.commodityGrpDesc{
+  vertical-align: text-top; 
+  text-align: left; 
+  min-width: 180px;
+  white-space: nowrap;
+}
+.commodityAllocation-prodGrpDesc{
+  width:50%; 
+  text-align: top; 
+  text-align: left; 
+  color:gray; 
+  font-weight: lighter;
+}
+.edit-button{
+    border-color: #fafafa;
+    color: #fafafa;
+}

@@ -1,0 +1,288 @@
+[
+  {
+    "buAllocation" : [
+      {
+        "prodGrpDesc": "Consumer",
+        "prodBuDesc": "CSG",
+        "amountAllocated": -1
+      },
+      {
+        "prodGrpDesc": "Commercial",
+        "prodBuDesc": "CSG",
+        "amountAllocated": -2
+      },
+      {
+        "prodGrpDesc": "CSG Other Service",
+        "prodBuDesc": "CSG",
+        "amountAllocated": 3
+      },
+      {
+        "prodGrpDesc": "Data Protection Storage,ESG Other Service",
+        "prodBuDesc": "ISG",
+        "amountAllocated": -4
+      },
+      {
+        "prodGrpDesc": "Data Protection Storage,ESG Other Service",
+        "prodBuDesc": "ISG",
+        "amountAllocated": 15
+      },
+      {
+        "prodGrpDesc": "",
+        "prodBuDesc": "Total",
+        "amountAllocated": ""
+      }
+    ]
+  },
+  {
+    "commodityAllocation" : [
+      {
+        "allocationType" : "SIMULATE",
+        "commodity" : [
+          {
+            "commodityGrpDesc" : "HDD",
+            "allocation" : [
+              {
+                "allocatePercentage":0,
+                "allocateAmount":20
+              },
+              {
+                "allocatePercentage":22,
+                "allocateAmount":332
+              },
+              {
+                "allocatePercentage":34,
+                "allocateAmount":356
+              },
+              {
+                "allocatePercentage":54,
+                "allocateAmount":576
+              },
+              {
+                "allocatePercentage":32,
+                "allocateAmount":16
+              },
+              {
+                "allocatePercentage":78,
+                "allocateAmount":72
+              }
+            ]
+          },
+          {
+            "commodityGrpDesc" : "SSD",
+            "allocation" : [
+              {
+                "allocatePercentage":45,
+                "allocateAmount":-74
+              },
+              {
+                "allocatePercentage":1,
+                "allocateAmount":85
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":29
+              },
+              {
+                "allocatePercentage":13,
+                "allocateAmount":-3
+              },
+              {
+                "allocatePercentage":34,
+                "allocateAmount":1
+              },
+              {
+                "allocatePercentage":43,
+                "allocateAmount":36
+              }
+            ]
+          },
+          {
+            "commodityGrpDesc" : "Simulate Total",
+            "allocation" : [
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "allocationType" : "NON SIMULATE",
+        "commodity" : [
+          {
+            "commodityGrpDesc" : "Memory",
+            "allocation" : [
+              {
+                "allocatePercentage":1,
+                "allocateAmount":-1
+              },
+              {
+                "allocatePercentage":1,
+                "allocateAmount":1
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":-1
+              },
+              {
+                "allocatePercentage":3,
+                "allocateAmount":1
+              },
+              {
+                "allocatePercentage":5,
+                "allocateAmount":4
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              }
+            ]
+          },
+          {
+            "commodityGrpDesc" : "AC",
+            "allocation" : [
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              }
+            ]
+          },
+          {
+            "commodityGrpDesc" : "Non Simulate Total",
+            "allocation" : [
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "allocationType" : "Gap to Target",
+        "commodity" : [
+          {
+            "commodityGrpDesc" : "TOTAL",
+            "allocation" : [
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              }
+            ]
+          },
+          {
+            "commodityGrpDesc" : "Gap to Target",
+            "allocation" : 
+            [
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              },
+              {
+                "allocatePercentage":0,
+                "allocateAmount":0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

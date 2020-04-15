@@ -1,0 +1,512 @@
+.cancelsave {
+     height: 32px; 
+     width: 163px; 
+    } 
+.cancel {
+     height: 18px; 
+     width: 49px; 
+    } 
+
+    .save { height: 32px; width: 90px; } 
+
+    .container { height: 782px; width: 1140px; background-color: #373845; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2); margin-right: 50px;margin-top: 50px;} 
+
+
+.divider {
+    height: 1px;
+    width: 1135px;
+    opacity: 0.5;
+    background-color: #656677;
+  }
+.commodity-allocation {
+    height: 32px;
+    width: 233px;
+    color: #FFFFFF;
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 32px;
+    margin-left: 25px;
+  }
+
+  .btndel {
+    height: 30px;
+    width: 30px;
+    border-width: 0px !important;
+    background-color: #373845;
+    font-family: Roboto;
+    padding-left: 80px;
+  }
+
+  .group-2-copy-18 {
+    height: 32px;
+    width: 165px;
+    /* background-color: #373845; */
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+    font-family: Roboto;
+    border-color:red ;
+    background-color:red ;
+    color:#FEFFFF !important;
+    font-family: 'Roboto';
+   
+  }
+
+  .group-2-copy-18 :disabled {
+    height: 32px;
+    width: 165px;
+    /* background-color: #373845; */
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+    font-family: Roboto;
+    border-color: #0076CE;
+    background-color: #0076CE ;
+    color:#FEFFFF !important;
+    font-family: 'Roboto';
+   
+  }
+
+.font-css{
+    font-family: 'Roboto';	
+    font-size: 32px;	
+    font-weight: 300;	
+    line-height: 43px;
+    color: #FFFFFF;
+}
+  .clr-select-wrapper select {
+    width: 8rem !important;
+    font-family: 'Roboto';
+    padding-left: 4px;
+    font-size: 14px;
+  }
+  .clr-select-wrapper select option {
+      color: white !important;
+      background-color: #26262B !important;
+  }
+.not-update-div-inner{
+    height: 40vh;
+    text-align: center;
+    max-height: 50vh;
+    padding-top: 4%;
+    font-family: 'Roboto';
+}
+.padding-class{
+    padding-top: 1%;
+    margin-left: 10px;
+    padding-bottom:2%;
+}
+.table th {
+    background-color: #26262B !important;
+}
+.table {
+    background-color: #373845 !important;
+}
+.btn.btn-primary1 {
+    border-color: #0076CE !important;
+    background-color: #0076CE !important;
+    color:#FEFFFF !important;
+    font-family: 'Roboto';
+    width: 160px !important;
+}
+
+.nav{
+    padding-left: 40% !important;
+}
+.nav, .nav .nav-item.active>.nav-link {
+    box-shadow: 0 -1px 0 #26262B inset !important;
+}
+
+button:focus{
+    outline: none !important;
+}
+
+.text-css{
+    font-family: 'Roboto';	font-size: 14px;	line-height: 19px;	text-align: center;
+    display: flex;
+}
+
+.dropdown-label{
+    color: #BBBBBB;	font-family: Roboto;	font-size: 14px;	line-height: 16px;
+}
+.hr-line {
+    width: 6%;
+    position: relative;
+    margin: 7px;
+    border-top: 1px solid #808080;
+  }
+  .left-side{
+      padding-left:1%;
+     
+  }
+  .wrapper {
+    display: flex;
+    align-items: center;
+    width: 172px;
+    color: #808080;
+  }
+  .line {
+    border-top: 1px solid #808080;
+    flex-grow: 1;
+    margin: 0 8px;
+  }
+div.multiselect-dropdown:focus{
+    outline: none;
+}
+ng-multiselect-dropdown span.dropdown-btn:focus{
+    outline: none;
+}
+span.selected-item {
+    border: 1px solid #ffffff !important;
+    margin-right: 4px;
+    background:#373845 !important ;
+    padding: 2px 5px !important;
+    color: #fff;
+    border-radius:20px !important;
+    float: left;
+    display: block;
+}
+span.selected-item:hover {
+    box-shadow: 1px 1px #26262B !important;; 
+}
+
+ng-multiselect-dropdown div.dropdown-list {
+    position: absolute ;
+    color:#FFFFFF;
+    padding-top: 1px !important;
+    width: 100%;
+    z-index: 9999;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #26262B !important;
+    margin-top: 5px !important;
+    box-shadow: 0 1px 5px #959595;
+}
+
+ng-multiselect-dropdown div.multiselect-item-checkbox input[type=checkbox]{
+    color: #f3f3f3 !important;
+}
+
+ng-multiselect-dropdown li.multiselect-item-checkbox input[type=checkbox]+ div:before {
+    border: 2px solid #f3f3f3 !important;
+   
+}
+
+ng-multiselect-dropdown  div.dropdown-list .filter-textbox input{
+    background-color: #26262B !important;
+    color: white !important;
+    
+}
+
+ng-multiselect-dropdown div.multiselect-dropdown .disabled > span {
+    background-color: #26262B !important;
+    
+}
+ng-multiselect-dropdown div.multiselect-dropdown .dropdown-btn {
+    color: #FFFFFF !important;
+}
+
+ng-multiselect-dropdown div.multiselect-dropdown .dropdown-btn .dropdown-down {
+    border-top: 6px solid #FFFFFF !important;
+    border-left: 7px solid transparent !important;
+    border-right: 7px solid transparent !important;
+}
+
+ng-multiselect-dropdown div.multiselect-dropdown .dropdown-btn .dropdown-up{
+    border-bottom: 6px solid #FFFFFF !important;
+    border-left: 7px solid transparent !important;
+    border-right: 7px solid transparent !important;
+}
+
+.nav .nav-link.active {
+    box-shadow: 0 -3px 0 #ffffff inset !important;
+}
+
+button .nav .nav-link.active, .nav .nav-link:hover {
+    box-shadow: 0 -3px 0 #ffffff inset !important;
+}
+ng-multiselect-dropdown li.multiselect-item-checkbox input[type=checkbox]:checked + div:before {
+    -webkit-animation: .2s ease-in borderscale;
+    animation: .2s ease-in borderscale;
+    background: #c2b2a1 !important;
+}
+ng-multiselect-dropdown li.multiselect-item-checkbox input[type=checkbox] + div{
+    color: #f7f4f4 !important;
+    font-family: 'Roboto';
+}
+.modal-dialog .modal-content {
+    background-color: #191715;
+}
+.update-div{
+    margin-left: 5%;
+    margin-right: 5%; 
+    border-top: 1px solid;
+}
+.without-update{
+    margin-left: 5%;
+        margin-right: 5%; 
+        border-style: solid; 
+        border-width: 1px; 
+        background-color: #373845
+}
+.release-space{
+    padding-left: 1.67%
+}
+.update-button{
+padding-left: 2.22%;
+padding-top: 1%;
+}
+.title-space{
+    padding-left: 3%
+}
+.dropdown-class{
+    color: white;
+    background-color: #26262B;
+    width: 192px;
+    border-style: none;
+    border-bottom: white;
+    border-bottom-style: solid;
+    margin-top: 5%;
+    padding-bottom: 3%;
+}
+
+select:focus{
+    outline: none;
+}
+select option:hover { background-color: grey !important; }
+
+***
+    css for multi select drop down
+**/
+
+.clear-btn{
+    border-color: transparent;
+    background-color: transparent;
+    color: #0077b7;
+    float: right;
+    padding: 0rem 0.4rem;
+    width: unset;
+    cursor: pointer;
+}
+.save-btn{
+    border: 0.05rem solid #0076CE;
+    background-color: #0076CE;
+    color: #fff;
+    float: right; 
+    border-radius: 2px;
+    padding: 0rem 0.4rem;
+    width: unset;
+    margin: 0rem 0.4rem; 
+}
+
+.save-btn:hover{
+    background: #0076CE;
+}
+
+.clear-btn:hover{
+    background: transparent;
+}
+
+.selected-option{
+    float: left;
+    border-radius: 0.5rem;
+    padding: 0 0.2rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    margin-right: 0.2rem;    
+}
+
+.select-content{
+    list-style: none;
+    height: 1.2rem;
+    width: 13rem;
+    overflow: hidden;
+    width: 90%;
+    line-height: 15px;
+}
+
+.option-css{
+color: #f7f4f4 !important;
+font-family: 'Roboto';
+background-color: #191715 !important;
+font-size: 12px;
+cursor: pointer;
+height: 30px !important;
+}
+.option-css:focus{
+    background-color: #191715 !important;
+}
+.clr-form-control {
+    margin-top: 6px !important;
+}
+[type=checkbox] {
+    width: 24px;
+    height: 17px;
+    border-radius: 2px;
+}
+
+
+tr.border_top td {
+    border-top:1pt solid white;
+  }
+option:disabled{color: red;}
+option.selected{
+    color:red;
+    background-color: red;
+}
+table#maintable,  tr {   
+    border: solid grey;
+    width: 100%;
+  }
+  .maindiv{
+    width: 1100px;overflow-x: auto;margin: 20px; height: 550px; overflow-y: auto;
+  }
+  .cmdtyrow{
+    padding-left: 10px;padding-right: 5px;width: 30px;font-size: 11px;width: 130px;border-right: solid grey;
+  }
+  .cmdtyspan1{
+    padding-left: 5px;padding-right: 100px;font-size: 11px;
+  }
+  .cmdtyspan2{
+    font-size: 11px;padding-right: 5px;
+  }
+  .coltotal{
+    font-size: 11px;vertical-align:text-top;width: 200px;
+  }
+  .borderright{
+    border-right: solid grey;
+  }
+  .bordertop{
+    border-top: solid grey;
+  }
+  .selectedsimtype
+  {
+    font-size: 11px;padding-left: 10px;padding-right: 5px;border-top: solid grey;
+  }
+  .comdtydesc
+  {
+    padding-left: 10px;padding-right: 0px;width: 130px;font-size: 11px;border-top: solid grey;border-right:solid grey;
+  }
+  .celleditallocation
+  {
+     background-color: black;border-color: black;text-align: center;color: white;
+  }
+  .celledittarget
+  {
+    width: 50px;height:30px;margin: 10px;margin-right: 30px; background-color: black;border-color: black;text-align: center;color: white;
+  }
+  .cellrowallocationtotal
+  {
+    margin-right: 30px;margin-left: 20px;padding-right: 40px;
+  }
+  .cellrowtargettotal
+  {
+    margin-right: 30px;margin-left: 20px;
+  }
+  .allocation{
+    padding-left: 5px;padding-right: 40px;font-size: 11px;
+  }
+  .target{
+    font-size: 11px;padding-right: 5px;
+  }
+  .simtypetotal{
+    padding-left: 10px;padding-right: 5px;width: 130px;font-size: 11px;
+  }
+  .rowallocationtotal{
+    width: 40px;height:30px;margin: 30px;margin-right: 30px; text-align: center;padding-right: 40px;
+  }
+  .rowtargettotal{
+    width: 40px;height: 30px;margin: 30px;margin-right: 10px;  text-align: center;
+  }
+
+  .commodity-allocation-parent-div{
+    margin-top: 2%;
+    background-color: #373845;
+    padding-bottom: 2%;
+    margin-bottom: 2%;
+  }
+  .commodity-allocation-parent-header {
+    padding: 2% 2% 2% 2%; 
+    margin: 0% 0% 0% 0%;
+    border-bottom: 1px solid;
+  }
+  .commodity-allocation-child-div{
+    padding: 2% 4% 2% 4%; 
+    margin: 0% 0% 0% 0%;
+  }
+  .commodity-allocation-child-header{
+    overflow-x:auto; 
+    position: relative;
+    /*border-collapse: collapse;
+    border: 0.5px grey solid;*/
+    
+  }
+  .commodity-allocation-parent-header-font{
+    color: #FFFFFF;
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: 300;
+  }
+  .commodity-table {
+     width: 100%;
+     position: relative;
+     margin-top: 0rem !important;
+     
+   }
+  .commodity-table > thead > tr > th:first-child, 
+  .commodity-table > tbody > tr > th:first-child,
+  .commodity-table > tbody > tr > td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 9;
+    background-color: #26262B;
+  }
+  
+  .commodity-table > thead > tr > th:nth-last-child(1) > table > tr > th:nth-last-child(1), 
+  .commodity-table > tbody > tr > th:nth-last-child(1) > table > tr > td:nth-last-child(1),
+  .commodity-table > tbody > tr > td:nth-last-child(1) > table > tr > td:nth-last-child(1) {
+    position: sticky;
+    right: 0;
+    background-color: #26262B;
+    z-index: 9;
+  }
+  
+  .commodity-table thead tr, .commodity-table th, .commodity-table tr td, .commodityAllocationHeader {   
+    border: solid grey 0.5px;
+    width: 100%;
+    font-size: 11px;
+    color: #fafafa;
+  }
+  .commodityAllocationBody {
+    width:180px;
+    display: flex;
+  }
+  .commodityAllocationSpan{
+    text-align: center;
+    width: 50%;
+    white-space: nowrap;
+    margin: 5px;
+  }
+  .commodityGrpDesc{
+    vertical-align: text-top; 
+    text-align: left; 
+    min-width: 180px;
+    white-space: nowrap;
+  }
+  .commodityAllocation-prodGrpDesc{
+    width:50%; 
+    text-align: top; 
+    text-align: left; 
+    color:gray; 
+    font-weight: lighter;
+  }
+  .edit-button{
+      border-color: #fafafa;
+      color: #fafafa;
+  }
+
+ /*table {
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+  }*/
+  

@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+ng-multiselect-dropdown span.dropdown-btn{
+    display: inline-block;
+    border: 0px solid #26262B !important;
+    border-bottom: 1px solid #E9ECEF !important;
+    width: 250px !important;
+    padding: 6px 4px !important;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.52857143;
+    text-align: left;
+    vertical-align: text-bottom;
+    cursor: pointer;
+    background-image: none;
+    border-radius: 1px !important;
+    overflow: auto !important;
+    font-family: 'Roboto';
+    height: 40px !important;
+  }
+  .main-container .content-container .content-area {
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    overflow-y: inherit !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 0rem;
+    width: 190px !important;
+  }

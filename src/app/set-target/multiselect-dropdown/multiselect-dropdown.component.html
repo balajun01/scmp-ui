@@ -1,0 +1,52 @@
+<clr-dropdown class="spaceB">
+
+        <button clrDropdownTrigger type="button"  class="msg-text nomargin button-multiselect" [disabled]="isDisabled" [ngClass]="{'btn-disabled': isDisabled}">
+            <div class="row flex-items-xs-between after-button" *ngIf="checkedList.length === 0">
+                <div class="smallHeading " style="text-align: left; color: white"  > Select Release Quarter
+                </div>
+                <span>
+                    <clr-icon style="float:right" shape="caret down" class="iconDropdown " clrDropdownTrigger></clr-icon>
+                </span>
+            </div> 
+            <div class="clr-row flex-items-xs-between" *ngIf="checkedList.length > 0" style="margin:0">
+                <ul class="select-content">
+                    <ng-container *ngFor="let item of checkedList; let i = index">
+                        <ng-container>
+                            <li class="selected-option smallSubText selected-border" >
+                                <span>{{item.releaseQuarter}} </span>
+                                <span (click)="removeSelected(i, item)">
+                                    <clr-icon shape="times" size="12"></clr-icon>
+                                </span>
+                            </li>
+                        </ng-container>
+                    </ng-container>
+                </ul>
+               
+                
+                    <clr-icon shape="caret down"  style="float:right" class="iconDropdown " clrDropdownTrigger></clr-icon> 
+              
+            </div>   
+        </button> 
+        <clr-dropdown-menu *clrIfOpen [clrPosition]="menuPosition" class="dropValues dropValBig msg-text" style="padding: 10px;width: 190px;background-color: #26262B;
+       ">
+            <!-- <div class="searchSpace" >
+                <div class="searchLine">
+                    <input type="text" [(ngModel)]="searchTxt" class="smallHeading  searchInput" size="45" placeholder="Search">
+                    <clr-icon *ngIf="!searchTxt || searchTxt.length === 0" shape="search" [ngClass]="theme === 'dark' ? 'is-inverse' : ''"></clr-icon>
+                    <clr-icon *ngIf="searchTxt.length" shape="times" [ngClass]="theme === 'dark' ? 'is-inverse' : ''" (click)="searchTxt=''"></clr-icon>
+                </div>
+            </div> -->
+            <div class="row scroll option-scroll">
+                
+                    <div class="clr-row" *ngFor="let option of options; let i = index">
+                            <input type="checkbox" clrCheckbox [(ngModel)]="option.checked" id="{{option.releaseQuarterId}}" (change)="onChangeOfOption(option)">
+                            <label class="subText" for="{{option.releaseQuarterId}}">{{option.releaseQuarter}}</label>
+                    </div>
+                    
+               
+            </div>
+            <!-- <div *ngIf="showClear">
+                <button class="clear-btn subText color9" type="button" [disabled]="checkedList && checkedList.length === 0" (click)="clearOptions()">CLEAR</button>
+            </div> -->
+        </clr-dropdown-menu>
+      </clr-dropdown>

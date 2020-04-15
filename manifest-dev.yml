@@ -1,0 +1,10 @@
+applications:
+- name: scmp-ui
+  disk_quota: 1G
+  instances: 1
+  memory: 1G
+#   routes:
+#   - route: angular-blueprint-ci.ausvdc02.pcf.dell.com
+  buildpack: dicf_staticfile_buildpack_1440_cflinuxfs3
+  stack: cflinuxfs3
+

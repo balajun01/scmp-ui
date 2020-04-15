@@ -1,0 +1,70 @@
+<div class="commodity-allocation-parent-div">
+    <!-- total allocation, start date. end date div -->
+    <div class="clr-row commodity-allocation-parent-header">
+        <div class="clr-col-md-9 clr-row commodity-allocation-parent-header-font">Commodity Allocation</div>
+        <div class="clr-col-md-3 clr-row clr-justify-content-end">
+            <button class="btn edit-button" (click)="onEdit(allocationData)"><clr-icon shape="pencil"></clr-icon> Edit</button>
+        </div>
+    </div>
+
+    <div class="clr-row commodity-allocation-child-div">
+        <div class="clr-row commodity-allocation-child-header">
+            <table class="table commodity-table">
+                <thead>
+                    <tr>
+                        <th class="commodityGrpDesc">COMMODITIES</th>
+                        <th class="table commodityAllocationHeader" style=" padding:0px;">
+                        <table>
+                            <tr class="commodityAllocationHeader">                       
+                                <th class="commodityAllocationHeader" style="vertical-align: text-top;" *ngFor="let buAllocation of buAllocation">
+                                    <div class="commodityAllocationBody">                      
+                                        <span style="width:50%; text-align: left;">{{buAllocation.prodBuDesc}}</span>
+                                        <span class="commodityAllocationSpan">{{buAllocation.amountAllocated | allocation}}</span>
+                                    </div>
+                                    <div class="commodityAllocationBody">                      
+                                        <span class="commodityAllocation-prodGrpDesc">{{buAllocation.prodGrpDesc}}</span>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="commodityAllocationHeader">                       
+                                <th class="commodityAllocationHeader" *ngFor="let buAllocation of buAllocation">
+                                    <div class="commodityAllocationBody">                      
+                                        <span class="commodityAllocationSpan">Allocation %</span>
+                                        <span class="commodityAllocationSpan">Target $M</span>
+                                    </div>
+                                </tr>
+                        </table>
+                        </th>
+                    </tr>
+                </thead>
+                
+                    
+                <!--      Table Body      -->
+                <tbody *ngFor="let commodityAllocation of commodityAllocation">
+
+                    <!--  (SIMULATE, NON SIMULATE, GAP TO TARGET)      --> 
+                    <tr *ngIf="commodityAllocation.allocationType !=='Gap to Target'">
+                        <th class="commodityGrpDesc">{{commodityAllocation.allocationType}}</th>
+                        <th class="table"></th>
+                    </tr>
+                    <tr *ngFor="let commodity of commodityAllocation.commodity;">
+                        <td class="commodityGrpDesc">{{commodity.commodityGrpDesc}}</td>
+                        <td class="table" style=" padding:0px;">
+                            <table>
+                            <tr>
+                            <td *ngFor="let allocation of commodity.allocation">
+                                <div class="commodityAllocationBody">                      
+                                    <span class="commodityAllocationSpan">{{allocation.allocatePercentage +"%"}}</span>
+                                    <span class="commodityAllocationSpan">{{allocation.allocateAmount | allocation}}</span>
+                                </div>
+                            </td> 
+                            </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

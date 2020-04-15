@@ -1,0 +1,250 @@
+# Template name: AngularJS Cloud Native blueprint; Version: 5.0.0
+# Links for reference: https://confluence.dell.com/display/DD/General+Info+-+5.0.0
+# Change the variables value as per your project requirement
+# Disclaimer: 
+# **** DevOps team recommends you to use this template to setup CICD pipelien for "AngularJS applications". Deviations to this template, should expect delay in response from support team.***#
+
+# variables
+variables:
+  APP_NAME: scmp-ui
+  TEMP_APP_NAME: scmp-prc
+  BROWN_APP_NAME: scmp-ui-brown
+  TARGET: 'dist'
+  NP_SERVICE_NAME: 'SCMPSSOService'
+  NP_PLAN: 'appsso'
+  NP_SB_NAME: 'p-identity'
+
+  # perf-test
+  APP_NAME_PERF: 'scmp-uit-perf'
+  
+include: 
+  - project: devops/release/cloudnative/sharedjobs
+    ref: v5.0.0
+    file: javascript-jobs-cloudnative.yml
+
+compile-package:
+  extends: .compile-package
+  variables:
+    BUILD_CMD: 'ng build'
+    #ENVIRONMENT: 'sit'
+  before_script:
+    - export HTTP_PROXY=http://ServiceDCSGReadonly:Readonly%40123@proxy.us.dell.com:80
+    - export HTTPS_PROXY=http://ServiceDCSGReadonly:Readonly%40123@proxy.us.dell.com:80
+    - |
+        case $CI_COMMIT_BRANCH in
+          current)
+          export ENVIRONMENT=dev
+          echo "Doing Build using dev env file."
+          ;;
+          development)
+          export ENVIRONMENT=sit
+          echo "Doing Build using SIT env file."
+          ;;
+          master)
+          export ENVIRONMENT=prod
+          echo "Doing Build using prod env file."
+          ;;
+          integration)
+          export ENVIRONMENT=e2e
+          echo "Doing Build using e2e env file."
+          ;;
+          *)
+          echo "Branch not listed"
+        esac
+    - cd src/environments 
+    - ls | grep -v environment.$ENVIRONMENT.ts | xargs rm
+    - ls -lrt
+    - mv environment.$ENVIRONMENT.ts environment.ts
+    - cd ../..
+  artifacts: 
+    expire_in: 5 day
+    when: always
+    paths:
+      #- $TARGET
+      - dist
+      #- node_modules/
+  except:
+    - tags
+      
+unit-test:
+  extends: .unit-test
+  image: harbor.ausmpc.pcf.dell.com/docker-store/browser-testing-devops:3.1-lighthouse-v1.1.0
+  variables:
+    #TEST_CMD: 'echo "message"'
+    TEST_CMD: 'npm run test'
+  before_script:
+    - export CHROME_BIN=/usr/bin/chromium-browser
+    - export HTTP_PROXY=http://ServiceDCSGReadonly:Readonly%40123@proxy.us.dell.com:80 
+    - export HTTPS_PROXY=http://ServiceDCSGReadonly:Readonly%40123@proxy.us.dell.com:80 
+    #- sudo npm install -g karma-cli karma
+  allow_failure: true
+  except:
+    - tags
+    - branches
+
+code-quality:
+  extends: .code-quality-vault
+  allow_failure: true
+  variables:
+    TEST_CMD: 'npm run test --quiet'
+    SONAR_PROJECT_NAME: "SCMP-UI"
+  before_script:
+    - export CHROME_BIN=/usr/bin/chromium-browser
+    - export HTTP_PROXY=http://'$PROXY_USER':'PROXY_PASS'@proxy.us.dell.com:80 
+    - export HTTPS_PROXY=http://'$PROXY_USER':'PROXY_PASS'@proxy.us.dell.com:80 
+    #- npm install -g karma-cli karma
+  except:
+    - tags
+    - branches
+
+checkmarx_scan-vault:
+  stage: verify-build
+  image: harbor.ausmpc.pcf.dell.com/docker-store/security-devops:18-v1.3.9
+  when: on_success
+  allow_failure: true
+  variables:
+    CX_PROJECT_NAME: 'Dell\PAS\Application\sCMP\scmp-ui'
+    CHECKMX_TOKEN: '7f4c02697c7b84c1f48b5d851a7df0ae'
+  before_script:
+    - echo $CX_PROJECT_NAME
+    - echo $CX_FOLDER_PATH
+  script:
+    - sastctl checkmarx --vault "$CX_PROJECT_NAME" "$CX_FOLDER_PATH" "$CX_COMMENT" --incremental
+  tags:
+    - linux
+  only:
+    - /^([fF]eature).*$/
+    - current
+    
+deploy-dev:
+  extends: .deploy-np-sb-vault
+  environment:
+    name: dev
+  variables:
+    APP_NAME: 'scmp-prc-dev' 
+    PCF_MF_FILE: 'manifest-dev.yml'
+    VAULT_PCF_SPACE: 'PCF/dev'
+    TARGET: 'dist/scmp-ui/'
+    SPACE: 'SCMP'
+  only:
+    - current
+    
+
+deploy-perf:
+  extends: .deploy-np-sb-vault
+  environment:
+    name: perf
+  variables:
+    APP_NAME: 'scmp-prc-perf' 
+    PCF_MF_FILE: 'manifest-perf.yml'
+    VAULT_PCF_SPACE: 'PCF/perf'
+    TARGET: 'dist/scmp-ui/'
+    SPACE: 'SCMP'
+  only:
+    - current1
+deploy-sit:
+  extends: .deploy-np-sb-vault
+  environment:
+    name: sit
+  variables:
+    APP_NAME: 'scmp-prc-sit' 
+    PCF_MF_FILE: 'manifest-sit.yml'
+    VAULT_PCF_SPACE: 'PCF/SIT'
+    TARGET: 'dist/scmp-ui/'
+    SPACE: 'SCMP'
+  only:
+    - development
+    
+publish-package:
+  extends: .artifactory-upload
+  variables:
+    PACKAGE_NAME: $CI_PROJECT_NAME
+    TARGET: 'dist'
+  only:
+    - master
+    
+retrieve-artifact:
+  extends: .retrieve-artifact
+  variables:
+    PACKAGE_NAME: $CI_PROJECT_NAME
+    TARGET: 'dist'
+  only:
+    - tags
+
+deploy-prod-primary:
+  environment:
+    name: prod-pc1
+  extends: .deploy-prod-vault
+  variables:
+    APP_NAME: 'scmp-prc' 
+    VAULT_PCF_SPACE: "PCF/pc1"
+    DOMAIN: 'cfp.isus.emc.com'
+    MF_FILE: 'manifest-prod.yml'
+    TARGET: 'dist/scmp-ui/'
+  before_script:
+    - export VAULT_ADDR=$PROD_VAULT_ADDR ; export VAULT_ROLE_ID=$PROD_VAULT_ROLE_ID ; export VAULT_SECRET_ID=$PROD_VAULT_SECRET_ID
+  only:
+    - tags
+
+# deploy-prod-secondary:
+#   environment:
+#     name: prod-s3b
+#   extends: .deploy-prod-vault
+#   variables:
+#     VAULT_PCF_SPACE: "PCF/S3B-CICD"
+#     DOMAIN: 'ausmsc01.pcf.dell.com'
+#     MF_FILE: 'pcf_manifests/manifest.prod-s3b.yml'
+#   before_script:
+#     - export VAULT_ADDR=PROD_VAULT_ADDR ; export VAULT_ROLE_ID=PROD_VAULT_ROLE_ID ; export VAULT_SECRET_ID=PROD_VAULT_SECRET_ID
+#   only:
+#     - tags
+  
+uat:
+  extends: .uat
+  only:
+    - tags
+
+switch-route-primary:
+  extends: .switch-route-with-rollback-vault
+  variables:
+    VAULT_PCF_SPACE: "PCF/pc1"
+    DOMAIN: 'cfp.isus.emc.com'
+  before_script:
+    - export VAULT_ADDR=$PROD_VAULT_ADDR ; export VAULT_ROLE_ID=$PROD_VAULT_ROLE_ID ; export VAULT_SECRET_ID=$PROD_VAULT_SECRET_ID
+  only:
+    - tags
+
+# switch-route-secondary:
+#   extends: .switch-route-with-rollback-vault
+#   variables:
+#     VAULT_PCF_SPACE: "PCF/S3B-CICD"
+#     DOMAIN: 'ausmsc01.pcf.dell.com'
+#   before_script:
+#     - export VAULT_ADDR=PROD_VAULT_ADDR ; export VAULT_ROLE_ID=PROD_VAULT_ROLE_ID ; export VAULT_SECRET_ID=PROD_VAULT_SECRET_ID
+#   only:
+#     - tags
+
+featuretoggle-test:
+  extends: .feature-toggle-test
+  dependencies:
+    - switch-route-primary
+  only:
+    - tags
+
+rollback-primary:
+  extends: .rollback-vault
+  variables:
+    VAULT_PCF_SPACE: "PCF/pc1"
+    DOMAIN: 'cfp.isus.emc.com'
+  before_script:
+    - export VAULT_ADDR=$PROD_VAULT_ADDR ; export VAULT_ROLE_ID=$PROD_VAULT_ROLE_ID ; export VAULT_SECRET_ID=$PROD_VAULT_SECRET_ID
+  only:
+    - tags
+
+# rollback-secondary:
+#   extends: .rollback-vault
+#   variables:
+#     VAULT_PCF_SPACE: "PCF/S3B-CICD"
+#     DOMAIN: 'ausmsc01.pcf.dell.com'
+#   only:
+#     - tags

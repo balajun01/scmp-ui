@@ -1,0 +1,95 @@
+.product-group-text{
+    color: #FFFFFF;	
+    font-family: Roboto;	
+    font-size: 13px;	
+    height: 6vh;
+    text-align: center;
+}
+.font-bold{
+    color: #FFFFFF;	
+    font-family: Roboto;	
+    font-size: 16px;
+    font-weight: bold;
+}
+.top-div{
+ margin-top: 2%;
+ background-color: #373845;
+ padding-bottom: 2%;
+ margin-bottom: 2%;
+}
+
+.dropdown-list ul {
+    max-height: 110px !important;
+}
+.date-div{
+    padding: 2% 2% 2% 2%; 
+    margin: 0% 0% 0% 0%;
+    border-bottom: 1px solid;
+}
+.modal-dialog {
+    position: relative;
+    z-index: 1050;
+    width: 26rem !important;
+    max-width: 100%;
+    font-weight: bold !important;
+    font-family: Roboto !important;
+}
+.csg-text{
+    color: #FFFFFF;	
+    font-family: Roboto;
+    font-size: 18px;
+    
+}
+.input-css{
+    background-color: #191715 !important;
+    border-color: #191715 !important;
+    color: white !important;
+    width: 40%;
+}
+.csg-div{
+    padding-top: 3%;
+}
+.form-outline{
+    border: 1px solid;
+    width: 97%;
+}
+.btn:hover {
+   background-color: rgba(255,255,255,.1);
+   color: #ffffff !important; 
+}
+.product-button{
+    font-family: Roboto;	
+    font-size: 13px;	
+    font-weight: 500;	
+    line-height: 18px;
+    border-color: white;
+    color: white;
+}
+.csg-isg-outer{
+    padding-left: 4% !important;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+.product-group-msg{
+    padding-left: 21%
+}
+.table-product-group{
+    border: 1px solid;
+    width: 95%;
+}
+/* input.ng-invalid {
+    border: 1px solid red !important;
+  } */
+.table{
+margin-top: 0.2rem !important;
+}
+.error-save{
+    margin-top: 0px !important;
+    color: red;
+    font-size: 10px;
+}

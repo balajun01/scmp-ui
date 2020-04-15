@@ -1,0 +1,106 @@
+
+.clear-btn{
+    border-color: transparent;
+    background-color: transparent;
+    color: #0077b7;
+    float: right;
+    padding: 0rem 0.4rem;
+    width: unset;
+    cursor: pointer;
+}
+.save-btn{
+    border: 0.05rem solid #0076CE;
+    background-color: #0076CE;
+    color: #fff;
+    float: right; 
+    border-radius: 2px;
+    padding: 0rem 0.4rem;
+    width: unset;
+    margin: 0rem 0.4rem; 
+}
+
+.save-btn:hover{
+    background: #0076CE;
+}
+
+.clear-btn:hover{
+    background: transparent;
+}
+
+.selected-option{
+    float: left;
+    border-radius: 0.5rem;
+    padding: 0 0.2rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    margin-right: 0.2rem;
+    color: #fff;
+    border-style: solid;
+}
+
+.select-content{
+    list-style: none;
+    height: 1.2rem;
+    width: 100%;
+    overflow: hidden;
+    line-height: 18px;
+}
+
+:host {
+    width: 100%;
+    display: block;
+}
+:host ::ng-deep .dropdown, :host ::ng-deep .dropdown-menu {
+    width: 100%;
+    display: block !important;
+}
+.iconDropdown{
+    padding: 0 !important; 
+    top: 20%;
+}
+
+.option-scroll {
+    width: 105%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.btn-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.nomargin{	
+    margin: 0;
+}
+
+:host ::ng-deep .clr-checkbox-wrapper input[type=checkbox]:checked+label::before {
+    background: #26262B !important;
+    border-style: solid !important;
+    border-color: grey !important;
+    border-width: 1px !important;
+}
+:host ::ng-deep .clr-checkbox-wrapper input[type=checkbox]+label::after {
+    border-left: .083333375rem solid grey !important;
+    border-bottom: .083333375rem solid grey !important;
+}
+
+.subText{
+    color: white;
+    font-family: Roboto;
+}
+::ng-deep .clr-checkbox-wrapper {
+    padding-left: 6% !important;
+}
+.button-multiselect{
+    border: none;
+    border-bottom:1px solid !important; 
+    min-width: 190px; 
+    padding-left: 0;
+    outline: none !important;
+    background-color: #26262B
+}
+.after-button{
+    margin:0;padding-top: 6px;
+    font-size: 14px;
+}

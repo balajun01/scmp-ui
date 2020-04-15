@@ -1,0 +1,116 @@
+<div class="content-container">
+    <div class="content-area">
+        <div>
+            <div class="first-padding-class">
+
+                <div class="font-css"><img src="assets/images/Path.svg" alt="menu"> Set Targets</div>
+                <div class="text-css">{{systemDate | date: 'MM/dd/yyyy'}}</div>
+            </div>
+            <!-- set targets workflow  -->
+            <div class="clr-row first-padding-class text-css">
+                <div class="wrapper" *ngFor="let title of titleList;last as isLast;first as isFirst">
+
+                    <clr-icon shape="circle" [ngStyle]="{'color':isFirst? '#0076CE' :'#808080'}" class="is-solid">
+                    </clr-icon>
+                    <div class="title-space" [ngStyle]="{'color':isFirst? '#E9ECEF' :'#808080'}">
+                        {{title}}</div>
+                    <div class="line" [ngStyle]="{'border-top-color':isFirst? '#E9ECEF' :'#808080'}" *ngIf="!isLast">
+                    </div>
+                </div>
+
+            </div>
+            <!-- cp month, release quarter and target method dropdown -->
+            <div class="clr-row first-padding-class">
+                <div class="clr-col-md-2">
+                    <label class="dropdown-label">CP Month</label>
+
+                    <select clrSelect [(ngModel)]="cpMonth" (change)="onCpMonthSelect($event,'first')"
+                        [formControl]="cpMonthControl">
+                        <option value="" disabled selected hidden>Select CP Month</option>
+                        <option *ngFor="let month of cpMonthList" value="{{month.cpMonthId}}">{{month.cpMonth}}</option>
+                    </select>
+                </div>
+
+                <div class="clr-col-md-2" class="release-space">
+                    <label class="dropdown-label">Release Quarter</label>
+                    <app-multiselect-dropdown [(ngModel)]="releaseQuarter" [formControl]="releaseQuarterControl">
+                    </app-multiselect-dropdown>
+                </div>
+
+                <div class="clr-col-md-2" class="release-space">
+                    <label class="dropdown-label">Target Method</label>
+                    <br>
+                    <select clrSelect [(ngModel)]="targetMethod" [formControl]="targetMethodControl">
+                        <option value="" disabled selected hidden>Select Target Method</option>
+                        <option *ngFor="let target of targetList" value="{{target.targetMethodId}}">
+                            {{target.targetMethod}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="clr-col-md-2" class="update-button">
+                    <button class="btn btn-primary"
+                        [disabled]="releaseQuarter==null || releaseQuarter.length==0|| targetMethod==null || targetMethod==''"
+                        (click)="generateTargetAllocations()">UPDATE</button>
+                </div>
+            </div>
+
+        </div>
+        <!--  when update not clicked -->
+        <div class="without-update" *ngIf="!updateClicked">
+
+            <div class="not-update-div-inner">
+                Select CP Month, Release Quarter,and Target <br>Method to set target allocations.
+            </div>
+
+        </div>
+        <!--  when update clicked and product group is visible frame 2-->
+        <div class="update-div" *ngIf="updateClicked">
+            <div>
+                <clr-tabs>
+                    <clr-tab *ngFor="let qtr of quarterTab;index as index;">
+                        <button clrTabLink id="{{qtr.releaseQuarterId}}" [disabled]="qtr.disabled"
+                            (click)="onTabChange(qtr.releaseQuarterId,targetIdForQuarters[index],index)">{{qtr.releaseQuarter}}</button>
+                        <ng-template [(clrIfActive)]="qtr.active">
+                            <clr-tab-content id="tab">
+                                <!-- frame product group -->
+                                <app-product-group-edit-frame *ngIf="editableMode" [startDate]="startDate"
+                                    [endDate]="endDate" [targetIdQuarter]="targetIdQuarters"
+                                    [allocationData]='allocationData' [quarter]="qtr.releaseQuarter"
+                                    [quarterId]="qtr.releaseQuarterId" [editButtonClick]="editButtonClick"
+                                    [updateAlertToChild]="updateAlertToChild" (valueChange)="changeInEditScreen($event)"
+                                    (editTabSwitch)="enableEditMode($event)" (editEvent)="showEdit($event)">
+                                </app-product-group-edit-frame>
+                                <app-product-group-view-frame *ngIf="!editableMode" [startDate]="startDate"
+                                    [endDate]="endDate" [allocationData]='allocationData'
+                                    [targetIdQuarter]="targetIdQuarters" (valueChange)="changeInEditScreen($event)"
+                                    (editTabSwitch)="enableEditMode($event)" (editEvent)="showEdit($event)">
+                                </app-product-group-view-frame>
+                                <app-allocate-commodities *ngIf="!editable" 
+                                    [allocationData]='allocationData'
+                                    [commodityAllocationList]='commodityAllocationList'
+                                    (editEvent)="showCommodityEdit($event)">
+                                </app-allocate-commodities>
+                                <app-allocate-commodity-view-frame *ngIf="commodityViewMode"
+                                    [commodityAllocationList]='commodityAllocationList'
+                                    (editEvent)="showCommodityEdit($event)"></app-allocate-commodity-view-frame>
+                            </clr-tab-content>
+                        </ng-template>
+                    </clr-tab>
+                </clr-tabs>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- on second update click popup -->
+<clr-modal [(clrModalOpen)]="enableUpdatePopUp">
+    <div class="modal-body">Are you sure you want to change <span *ngIf="cpMonthRelease">CP month / </span><span
+            *ngIf="releaseQuarterChanged || cpMonthRelease"> Release quarter /</span><span
+            *ngIf="targetMethodChanged">Target method</span> ?</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="retainOriginalValue()">No</button>
+        <button type="button" class="btn btn-primary" (click)="userRequestedChange()">Yes</button>
+    </div>
+</clr-modal>
