@@ -14,39 +14,41 @@ export class BUAllocation{
      prodGrpId :  number;  
      prodGrpDesc :  string;        
      amountAllocated : number;
-     constructor(prodBuId:  number,  prodBuDesc :  string, prodGrpId :  number, prodGrpDesc :  string, amountAllocated : number){
+     targetId:string;          
+     constructor(prodBuId:  number,  prodBuDesc :  string, prodGrpId :  number, prodGrpDesc :  string, amountAllocated : number,targetId:string){
      this.prodBuId=prodBuId;
      this.prodBuDesc=prodBuDesc;
      this.prodGrpId=prodGrpId;
      this.prodGrpDesc=prodGrpDesc;
      this.amountAllocated=amountAllocated;
+     this.targetId=targetId;
      }
 }
 export class Allocation{
-    allocationpercentage:number
-    allocationtarget:number
+    allocationPercentage:number
+    allocationTarget:number
     constructor( allocationpercentage:number,allocationtarget:number){
-        this.allocationpercentage=allocationpercentage;
-        this.allocationtarget=allocationtarget;
+        this.allocationPercentage=allocationpercentage;
+        this.allocationTarget=allocationtarget;
     }
 }   
 export class Commodity
 {
     commodityGrpId : string
     commodityGrpDesc : string
-    allocationlist:Array<Allocation>
+    allocationList:Array<Allocation>
     constructor( commodityGrpId : string, commodityGrpDesc : string, allocationlist:Array<Allocation>)
     {
         this.commodityGrpId=commodityGrpId;
         this.commodityGrpDesc=commodityGrpDesc;
-        this.allocationlist=allocationlist;
+        this.allocationList=allocationlist;
     }
 }
 export class CommodityAllocation{
     allocationType:string
-    commoditieslist:Commodity[]
+    commoditiesList:Commodity[]
     constructor(allocationType:string,commoditieslist:Commodity[]){
     this.allocationType=allocationType;
-    this.commoditieslist=commoditieslist;
+    this.commoditiesList=commoditieslist;
     }
 }

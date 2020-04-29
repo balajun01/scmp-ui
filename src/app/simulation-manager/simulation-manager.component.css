@@ -1,0 +1,29 @@
+.scm-header {
+    padding-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom:1%;
+    border-bottom: 0.5px solid gray;
+} 
+.scm-title {
+    font-family: 'Roboto';    
+    font-size: 28px;    
+    font-weight: 300;    
+    line-height: 32px;
+    color: #FFFFFF;
+}
+.scm-system-date {
+    font-family: 'Roboto';
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    display: flex;
+    color: #ccccccb8;
+}
+.btn.btn-primary {
+    border-color: #0076CE !important;
+    background-color: #0076CE !important;
+    color:#FEFFFF !important;
+    font-family: 'Roboto';
+    width: 120px !important;
+}

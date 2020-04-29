@@ -5,17 +5,17 @@
 
   <div class="content-container">
     <div class="clr-row padding-class">
-      <div class="clr-col-md-3">
+      <div class="clr-col-sm-3" style="margin-top:0px!important;">
 
         <ng-multiselect-dropdown [data]="commodityList" [(ngModel)]="commodity" [disabled]="disabled"  
-          placeholder="Select Commodity" [settings]="commoditySettings" (onSelect)="onCommoditySelect($event)">
+          placeholder="Select Commodity" [settings]="commoditySettings" (onSelect)="onCommoditySelect($event)" style="margin-top: 16px!important;height: 20px!important;">
           
         </ng-multiselect-dropdown>
 
       </div>
       <div class="clr-col-md-3" style="margin-top: 10px;">
         <select clrSelect [(ngModel)]="simType">
-          <option value="undefined" disabled selected hidden>Select Type</option>
+          <option value="undefined" disabled selected hidden style="margin-bottom: 50px!important;">Select Type</option>
           <option *ngFor="let type of simTypeList" value="{{type.id}},{{type.type}}">{{type.type}}</option>
         </select>
       </div>
@@ -26,9 +26,11 @@
 
       </div>
 
-      <div class="clr-col-md-3 clr-row clr-justify-content-end">
+      <div class="clr-col-md-3 clr-row clr-justify-content-end" style="margin-top: 10px;">
         <button class="btn btn-primary" [disabled]="isCancel" (click)="cancel()">Cancel</button>
-        <button class="btn btn-primary" [disabled]="isCancel" (click)="save(false, true)">Save</button>
+        <button class="btn btn-primary" [disabled]="isSave" (click)="save(false, true)">Save</button>
+       
+        <!-- <button class="btn btn-primary" [disabled]="isCancel" (click)="cascadeTargetId()">Cascade</button> -->
       </div>
 
     </div>
@@ -42,12 +44,13 @@
       </select>
     </div>
   </div>
+  
   <div class="clr-row commodity-allocation-child-div">
     <div class="clr-row commodity-allocation-child-header" style="height: 500px;overflow-y: auto;">  
-        <table class="table commodity-table"style="width: 100%;">
+        <table class="table commodity-table">
             <thead>
                 <tr>
-                    <th class="commodityGrpDesc">COMMODITIES</th>
+                    <th class="commodityGrpDesc" style="vertical-align: top;">COMMODITIES</th>
                     <th class="table commodityAllocationHeader" style=" padding:0px;">
                     <table>
                         <tr class="commodityAllocationHeader">                       
@@ -77,40 +80,42 @@
                 
             <tbody *ngFor="let commodityAllocation of _allocationDataModel.commodityAllocation">
                 
-                <tr *ngIf="commodityAllocation.allocationType !=='Gap to Target'">
+                <tr *ngIf="commodityAllocation.allocationType !=='GAP TO TARGET'">
                     <th class="commodityGrpDesc">{{commodityAllocation.allocationType}}</th>
                     <th class="table"></th>
                 </tr>
-                <tr *ngFor="let commodity of commodityAllocation.commoditieslist;let j=index">                 
+                <tr *ngFor="let commodity of commodityAllocation.commoditiesList;let j=index;">                 
                     <td class="commodityGrpDesc">{{commodity.commodityGrpDesc}}
-                   <button class="btndel" (click)="deletecommodity($event,commodity.commodityGrpId,commodityAllocation.allocationType)" [hidden]="commodity.commodityGrpDesc=='NON SIMULATE Total'||commodity.commodityGrpDesc=='SIMULATE Total'"> <img src="assets/images/Delete.svg" /></button>
+                   <button class="btndel" (click)="deletecommodity($event,commodity.commodityGrpId,commodityAllocation.allocationType)" [hidden]="commodity.commodityGrpDesc=='NON SIMULATE TOTAL'||commodity.commodityGrpDesc=='SIMULATE TOTAL'||commodity.commodityGrpDesc=='GAP TO TARGET'||commodity.commodityGrpDesc=='TOTAL'"> <img src="assets/images/Delete.svg" /></button>
                     </td>
                     <td class="table" style=" padding:0px;">
-                        <table>  
-                        <tr [attr.id]="commodity.commodityGrpId[j]">                           
-                        <td *ngFor="let allocation of commodity.allocationlist; let i=index;" class="form-group">
-                            <div class="commodityAllocationBody" *ngIf="i<commodity.allocationlist.length-1" [hidden]="commodity.commodityGrpDesc=='NON SIMULATE Total' || commodity.commodityGrpDesc=='SIMULATE Total'" >                      
-                             <input  type="number" appNumeric class="commodityAllocationSpan celleditallocation" [disabled]="!displayallocate"  placeholder="0" [(ngModel)]="commodity.allocationlist[i].allocationpercentage"  (change)="RowColCalculatePercentage($event,commodity.commodityGrpId,commodityAllocation.allocationType,i)"/>
-                              <input  type="number" appNumeric class="commodityAllocationSpan celleditallocation" *ngIf="allocation.allocationtarget < 0" [disabled]="displayallocate" placeholder="0" (change)="RowColCalculateTarget($event,commodity.commodityGrpId,commodityAllocation.allocationType,i)" [(ngModel)]="allocation.allocationtarget"/>  
-                                <input  type="number" appNumeric class="commodityAllocationSpan celleditallocation"  [disabled]="displayallocate"  placeholder="0" (change)="RowColCalculateTarget($event,commodity.commodityGrpId,commodityAllocation.allocationType,i)" [(ngModel)]="allocation.allocationtarget" *ngIf="allocation.allocationtarget >=0"/>
+                      
+                    <table>  
+                        <tr [attr.id]="commodity.commodityGrpId">                           
+                        <td *ngFor="let allocation of commodity.allocationList;let i=index; trackBy: trackByMethod;">
+                         
+                            <div class="commodityAllocationBody" *ngIf="i<commodity.allocationList.length-1" [hidden]="commodity.commodityGrpDesc=='NON SIMULATE TOTAL' || commodity.commodityGrpDesc=='SIMULATE TOTAL'|| commodity.commodityGrpDesc=='TOTAL'|| commodity.commodityGrpDesc=='GAP TO TARGET'" >                      
+                             <input   type="number" appNumeric class="commodityAllocationSpan celleditallocation" [disabled]="!displayallocate"  [(ngModel)]="allocation.allocationPercentage"  (change)="RowColCalculatePercentage($event,commodity.commodityGrpId,commodityAllocation.allocationType,i)" (focus)="start($event)" (focusout)="end($event)"/>
+                          <!--    <input   type="number" appNumeric class="commodityAllocationSpan celleditallocation" *ngIf="allocation.allocationTarget < 0" [disabled]="displayallocate" placeholder="0" (change)="RowColCalculateTarget($event,commodity.commodityGrpId,commodityAllocation.allocationType,i)" [(ngModel)]="allocation.allocationTarget" />  -->
+                                <input  type="number" appNumeric class="commodityAllocationSpan celleditallocation"  [disabled]="displayallocate"  (change)="RowColCalculateTarget($event,commodity.commodityGrpId,commodityAllocation.allocationType,i)" [(ngModel)]="allocation.allocationTarget" (focus)="start($event)" (focusout)="end($event)"/>
                              </div>
-                          <div  class="commodityAllocationBody" *ngIf="i<commodity.allocationlist.length-1" [hidden]="commodity.commodityGrpDesc!='NON SIMULATE Total' && commodity.commodityGrpDesc!='SIMULATE Total'">
-                              <span   class="commodityAllocationSpan">{{allocation.allocationpercentage}}</span>
-                              <span   class="commodityAllocationSpan">{{allocation.allocationtarget}}</span>   
+                            
+                           <div  class="commodityAllocationBody" *ngIf="i<commodity.allocationList.length-1" [hidden]="commodity.commodityGrpDesc!='NON SIMULATE TOTAL' && commodity.commodityGrpDesc!='SIMULATE TOTAL' &&  commodity.commodityGrpDesc!='TOTAL' && commodity.commodityGrpDesc!= 'GAP TO TARGET'">
+                              <span   class="commodityAllocationSpan" [style.color]="allocation.allocationPercentage !== 100 && allocation.allocationPercentage!==0 && commodity.commodityGrpDesc==='TOTAL'? 'red' : ''">{{allocation.allocationPercentage}}%</span>
+                              <span   class="commodityAllocationSpan">{{allocation.allocationTarget}}</span>   
                              </div>            
-                             <div class="commodityAllocationBody" *ngIf="i==commodity.allocationlist.length-1">                 
-                              <span   class="commodityAllocationSpan" placeholder="0">{{allocation.allocationpercentage}}</span>
-                             <span   class="commodityAllocationSpan">{{allocation.allocationtarget}}</span>
+                             <div class="commodityAllocationBody" *ngIf="i==commodity.allocationList.length-1">                 
+                              <span   class="commodityAllocationSpan" appNumeric value="" [style.color]="allocation.allocationPercentage !== 100 && allocation.allocationPercentage!==0 && commodity.commodityGrpDesc==='TOTAL'? 'red' : ''">{{allocation.allocationPercentage}}%</span>
+                             <span   class="commodityAllocationSpan" appNumeric>{{allocation.allocationTarget}}</span>
                            </div>    
-                           <!--<div>
-                             {{j+1}}
-                           </div>  -->                    
+                                     
                         </td> 
                         </tr>
                      </table>
+                   
                     </td>
                 </tr>
-
+              
             </tbody>
         </table>
     </div>
@@ -128,156 +133,3 @@
 </clr-modal>
 
 
-<!-- <div class="maindiv" *ngIf="allocationData && allocationData.length>0">
-    <table id="maintable">
-      <tr>
-        <td class="cmdtyrow">COMMODITIES</td>
-        <td style="width:500px;">
-          <table style="width: 100%;">
-            <tr>
-              <td style="vertical-align: text-top;" *ngFor="let bu of allocationData" class="borderright">
-                <span class="cmdtyspan1">{{bu.prodBuDesc}}</span>
-                <span class="cmdtyspan2">{{bu.amountAllocated}}</span></td>
-              <td rowspan="2" class="coltotal"> Total</td>
-            </tr>
-            <tr>
-              <td style="font-size: 11px;vertical-align: text-top;" *ngFor="let bu of allocationData"
-                class="borderright">{{bu.prodGrpDesc}}</td>
-            </tr>
-            <tr>
-              <td *ngFor="let bu of allocationData" class="borderright bordertop">
-                <span class="allocation">Allocation%</span>
-                <span class="target">Target$M</span></td>
-              <td style="width: 200px;" class="bordertop">
-                <span class="allocation">Allocation%</span>
-                <span class="target">Target$M</span></td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr *ngIf="display && firstselectedcommoditylist.length>0 && selectedsimtypelist.length>0">
-        <td colspan="3" class="selectedsimtype">
-          {{firstselectedsimtype}}
-        </td>
-      </tr>
-      <ng-container *ngIf="display">
-        <tr *ngFor="let comd of firstselectedcommoditylist">
-          <td class="comdtydesc">{{comd.commodityDesc}} <button class="btndel" (click)="deletecommodity($event)"> <img
-                src="assets/images/Delete.svg" /></button> </td>
-
-          <td>
-            <table style="width: 100%;">
-              <tr>
-                <td *ngFor="let bu of allocationData" class="borderright bordertop">
-                  <input type="number" name="allocaion1" class="celleditallocation" placeholder="0"
-                    (change)="RowColCalculateAllocation($event,comd.commodityId,firstselectedsimtype)"
-                    [disabled]="!displayallocate" appNumeric />
-                  <input type="number" name="target1" class="celledittarget" placeholder="0"
-                    [disabled]="displayallocate" appNumeric />
-                </td>
-                <td class="coltotal bordertop">
-                  <span class="cellrowallocationtotal">{{commodityrowtotal}}</span>
-                  <span class="cellrowtargettotal">0</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </ng-container>
-      <tr *ngIf="display && firstselectedcommoditylist.length>0 && selectedsimtypelist.length>0">
-        <td class="selectedsimtype bordertop borderright">{{firstselectedsimtype}} Total</td>
-        <td>
-          <table style="width: 100%;">
-            <tr>
-              <td *ngFor="let bu of allocationData" class="bordertop borderright">
-                <span class="rowallocationtotal">{{commoditycoltotal}}</span>
-                <span class="rowtargettotal">0</span>
-              </td>
-              <td class="coltotal bordertop">
-                <span class="cellrowallocationtotal">0</span>
-                <span class="cellrowtargettotal">0</span>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr *ngIf="display && secondselectedcommoditylist.length>0 && selectedsimtypelist.length>0">
-        <td colspan="3" class="selectedsimtype bordertop">
-          {{secondselectedsimtype}}
-        </td>
-      </tr>
-      <ng-container *ngIf="display">
-        <tr *ngFor="let comd of secondselectedcommoditylist">
-          <td class="comdtydesc">{{comd.commodityDesc}}<button class="btndel" (click)="deletecommodity()"> <img
-                src="assets/images/Delete.svg" /></button></td>
-          <td>
-            <table style="width: 100%;">
-              <tr>
-                <td *ngFor="let bu of allocationData" class="borderright bordertop">
-                  <input type="number" name="allocaion1" class="celleditallocation" placeholder="0"
-                    [disabled]="!displayallocate" appNumeric />
-                  <input type="number" name="target1" class="celledittarget" placeholder="0" appNumeric
-                    [disabled]="displayallocate" />
-                </td>
-                <td class="coltotal bordertop">
-                  <span class="cellrowallocationtotal">0 </span>
-                  <span class="cellrowtargettotal">0</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </ng-container>
-      <tr *ngIf="display && secondselectedcommoditylist.length>0 && selectedsimtypelist.length>0">
-        <td class="selectedsimtype borderright bordertop">{{secondselectedsimtype}} Total</td>
-        <td>
-          <table style="width: 100%;">
-            <tr>
-              <td *ngFor="let bu of allocationData" class="bordertop borderright">
-                <span class="rowallocationtotal">0</span>
-                <span class="rowtargettotal">0</span>
-              </td>
-              <td class="coltotal bordertop">
-                <span class="cellrowallocationtotal">0 </span>
-                <span class="cellrowtargettotal">0</span>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr *ngIf="display">
-        <td class="selectedsimtype borderright bordertop">Total</td>
-        <td>
-          <table style="width: 100%;">
-            <tr>
-              <td *ngFor="let bu of allocationData" class="bordertop borderright">
-                <span class="rowallocationtotal">0</span>
-                <span class="rowtargettotal">0</span>
-              </td>
-              <td class="coltotal bordertop">
-                <span class="cellrowallocationtotal">0 </span>
-                <span class="cellrowtargettotal">0</span>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr *ngIf="display">
-        <td class="selectedsimtype borderright bordertop">Gap to Target</td>
-        <td>
-          <table style="width: 100%;">
-            <tr>
-              <td *ngFor="let comd of allocationData" class="bordertop borderright">
-                <span class="rowallocationtotal">0</span>
-                <span class="rowtargettotal">0</span>
-              </td>
-              <td class="coltotal bordertop">
-                <span class="cellrowallocationtotal">0 </span>
-                <span class="cellrowtargettotal">0</span>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </div>-->

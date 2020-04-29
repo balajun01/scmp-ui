@@ -3,18 +3,19 @@
     <div class="clr-row date-div">
         <div class="clr-col-md-9 clr-row">
             <div class="clr-col-md-3"> <label class="dropdown-label"> Total
-                    allocation</label><br>
+                    Allocation</label><br>
                 <!-- <span *ngIf="totalAllocation==0" class="font-bold">$0</span> -->
                 <span class="font-bold">$ {{totalAllocation}} M</span></div>
 
-            <div class="clr-col-md-2"> <label class="dropdown-label"> Start Date</label><br>
+            <div class="clr-col-md-3"> <label class="dropdown-label"> Start Date</label><br>
                 <span class="font-bold"> {{startDate | date: 'MM/dd/yyyy'}} </span></div>
 
-            <div class="clr-col-md-2"> <label class="dropdown-label">End Date</label><br>
+            <div class="clr-col-md-3"> <label class="dropdown-label">End Date</label><br>
                 <span class="font-bold"> {{endDate | date: 'MM/dd/yyyy'}} </span></div>
+               
         </div>
-        <div class="clr-col-md-3 clr-row clr-justify-content-end">
-            <button class="btn btn-primary" [disabled]="isCancel" (click)="cancelProductForm()">Cancel</button>
+        <div class="clr-col-md-3 clr-row clr-justify-content-end" style="margin-left: 2%;">
+         <button class="btn btn-primary" [disabled]="isCancel" (click)="cancelProductForm()">Cancel</button>
             <!-- <span>{{!CSGProductForm.dirty && !ISGProductForm.dirty}}
                 {{isCancel || !CSGProductForm.valid || !ISGProductForm.valid}}</span> -->
             <button class="btn btn-primary" [disabled]=" (!CSGProductForm.dirty && !ISGProductForm.dirty) ||(
@@ -28,7 +29,7 @@
         <div class="clr-col-md-6 csg-isg-outer">
             <div class="clr-row csg-div">
                 <div class="csg-text clr-col-md-8"> CSG  <span class="error-save" *ngIf="!CSGProductForm.valid">Product Group and Allocation is mandatory</span></div>
-                <div class="csg-text clr-col-md-4"> $ {{totalCSGallocation}} M</div>
+                <div class="csg-text clr-col-md-4"><span style="float: right;padding-right: 16%;"> $ {{totalCSGallocation}} M </span></div>
                 <!-- <div *ngIf="totalCSGallocation==0" class="csg-text clr-col-md-4">0</div> -->
             </div>
             <form [formGroup]="CSGProductForm">
@@ -36,8 +37,8 @@
                 <table class="table form-outline" formArrayName="cSGRows">
                     <thead>
                         <tr>
-                            <th><span style="float:left">Product Group </span></th>
-                            <th>Allocation($M)</th>
+                            <th class="product-allocation"><span style="float:left">Product Group </span></th>
+                            <th class="product-allocation">Allocation($M)</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -50,8 +51,8 @@
                             <td class="form-group">
 
                                 <ng-multiselect-dropdown [placeholder]="'Select Product Group'"
-                                    formControlName="productCSG" [(data)]="productCSGList" [settings]="csgIsgSettings"
-                                    (onSelect)="onCSGSelect($event)" (onDeSelect)="onCSGDeselect($event)">
+                                    formControlName="productCSG" [(data)]="productCSGArrayList[i]" [settings]="csgIsgSettings"
+                                    (onSelect)="onCSGSelect($event,i)" (onDeSelect)="onCSGDeselect($event,i)">
                                 </ng-multiselect-dropdown>
 
                             </td>
@@ -77,7 +78,7 @@
         <div class="clr-col-md-6">
             <div class="clr-row csg-div">
                 <div class="csg-text clr-col-md-8"> ISG   <span class="error-save" *ngIf="!ISGProductForm.valid">Product Group and Allocation is mandatory</span></div>
-                <div class="csg-text clr-col-md-4">$ {{totalISGallocation}} M</div>
+                <div class="csg-text clr-col-md-4"><span style="float: right;padding-right: 16%;">$ {{totalISGallocation}} M</span></div>
                 <!-- <div *ngIf="totalISGallocation==0" class="csg-text clr-col-md-4">0</div> -->
             </div>
             <form [formGroup]="ISGProductForm">
@@ -85,8 +86,8 @@
 
                     <thead>
                         <tr>
-                            <th><span style="float:left">Product Group</span></th>
-                            <th>Allocation($M)</th>
+                            <th class="product-allocation"><span style="float:left">Product Group</span></th>
+                            <th class="product-allocation">Allocation($M)</th>
                             <th></th>
 
                         </tr>
@@ -99,8 +100,8 @@
                             [formGroupName]="i">
                             <td class="form-group">
                                 <ng-multiselect-dropdown [placeholder]="'Select Product Group'"
-                                    formControlName="productISG" [(data)]="productISGList" [settings]="csgIsgSettings"
-                                    (onSelect)="onISGSelect($event)" (onDeSelect)="onISGDeselect($event)">
+                                    formControlName="productISG" [(data)]="productISGArrayList[i]" [settings]="csgIsgSettings"
+                                    (onSelect)="onISGSelect($event,i)" (onDeSelect)="onISGDeselect($event,i)">
                                 </ng-multiselect-dropdown>
                             </td>
 

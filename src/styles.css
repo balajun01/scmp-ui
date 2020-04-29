@@ -12,12 +12,14 @@ ng-multiselect-dropdown span.dropdown-btn{
     text-align: left;
     vertical-align: text-bottom;
     cursor: pointer;
-    background-image: none;
+    background-image: 'assets/images/Delete.svg';
     border-radius: 1px !important;
     overflow: auto !important;
     font-family: 'Roboto';
-    height: 40px !important;
+    height: 40px !important;    
   }
+
+  
   .main-container .content-container .content-area {
     -webkit-box-flex: 1;
     flex: 1 1 auto;

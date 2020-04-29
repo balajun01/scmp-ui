@@ -42,9 +42,9 @@ export class ProductGroupViewFrameComponent implements OnInit {
           for (let productGroup of this.savedProductGroupAllocationData) {
             if (productGroup.prodBuDesc === 'CSG') {
               productGroup.prodGrpDescSplit = productGroup.prodGrpDesc.split('  ').join('\n');
-            
+
               this.productGroupCSG.push(productGroup);
-            } else if(productGroup.prodBuDesc === 'ISG'){
+            } else if (productGroup.prodBuDesc === 'ISG') {
               productGroup.prodGrpDescSplit = productGroup.prodGrpDesc.split('  ').join('\n');
               this.productGroupISG.push(productGroup);
             }
@@ -70,8 +70,11 @@ export class ProductGroupViewFrameComponent implements OnInit {
   }
 
   onEdit(data: any) {
-    data.editable = true;
-    this.editEvent.emit(data);
+    if (data !== undefined) {
+      data.editable = true;
+      this.editEvent.emit(data);
+    }
+
     let obj = {
       "editClicked": true,
       "editable": true

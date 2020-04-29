@@ -47,15 +47,15 @@
                         <th class="commodityGrpDesc">{{commodityAllocation.allocationType}}</th>
                         <th class="table"></th>
                     </tr>
-                    <tr *ngFor="let commodity of commodityAllocation.commodity;">
+                    <tr *ngFor="let commodity of commodityAllocation.commoditiesList;">
                         <td class="commodityGrpDesc">{{commodity.commodityGrpDesc}}</td>
                         <td class="table" style=" padding:0px;">
                             <table>
                             <tr>
-                            <td *ngFor="let allocation of commodity.allocation">
+                            <td *ngFor="let allocation of commodity.allocationList">
                                 <div class="commodityAllocationBody">                      
-                                    <span class="commodityAllocationSpan">{{allocation.allocatePercentage +"%"}}</span>
-                                    <span class="commodityAllocationSpan">{{allocation.allocateAmount | allocation}}</span>
+                                    <span class="commodityAllocationSpan">{{allocation.allocationPercentage +"%"}}</span>
+                                    <span class="commodityAllocationSpan">{{allocation.allocationTarget | allocation}}</span>
                                 </div>
                             </td> 
                             </tr>

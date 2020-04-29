@@ -1,19 +1,19 @@
 <div class="top-div">
     <!-- total allocation, start date. end date div -->
     <div class="clr-row date-div">
-        <div class="clr-col-md-9 clr-row">
+        <div class="clr-col-md-10 clr-row">
             <div class="clr-col-md-3"> <label class="dropdown-label"> Total
-                allocation</label><br>
+                Allocation</label><br>
             <span *ngIf="totalAllocation==0" class="font-bold">0</span>
             <span *ngIf="totalAllocation!=0" class="font-bold">$ {{totalAllocation}} M</span></div>
 
-            <div class="clr-col-md-2"> <label class="dropdown-label"> Start Date</label><br>
+            <div class="clr-col-md-3"> <label class="dropdown-label"> Start Date</label><br>
                 <span class="font-bold"> {{startDate | date: 'MM/dd/yyyy'}} </span></div>
 
-            <div class="clr-col-md-2"> <label class="dropdown-label">End Date</label><br>
+            <div class="clr-col-md-3"> <label class="dropdown-label">End Date</label><br>
                 <span class="font-bold"> {{endDate | date: 'MM/dd/yyyy'}} </span></div>
         </div>
-        <div class="clr-col-md-3 clr-row clr-justify-content-end">
+        <div class="clr-col-md-2 clr-row clr-justify-content-end" style="margin-left:2%">
             <button class="btn edit-button"
             (click)="onEdit(allocationData)"><clr-icon shape="pencil"></clr-icon> Edit</button>
         </div>
@@ -25,8 +25,8 @@
         <div class="clr-col-md-6 csg-isg-outer">
             <div class="clr-row csg-div">
                 <div class="csg-text clr-col-md-8"> CSG</div>
-                <div *ngIf="totalCSGAllocation!=0" class="csg-text clr-col-md-4"> $ {{totalCSGAllocation}} M</div>
-                <div *ngIf="totalCSGAllocation==0" class="csg-text clr-col-md-4">0</div>
+                <div class="csg-text clr-col-md-4"><span style="float: right;padding-right: 16%;"> $ {{totalCSGAllocation}} M</span></div>
+                
             </div>
             <table class="table table-left" id="ISGProduct" style="width: 95%;">
                 <thead>
@@ -47,8 +47,7 @@
         <div class="clr-col-md-6">
             <div class="clr-row csg-div">
                 <div class="csg-text clr-col-md-8"> ISG</div>
-                <div *ngIf="totalISGAllocation!=0" class="csg-text clr-col-md-4">$ {{totalISGAllocation}} M</div>
-                <div *ngIf="totalISGAllocation==0" class="csg-text clr-col-md-4">0</div>
+                <div  class="csg-text clr-col-md-4"><span style="float: right;padding-right: 16%;">$ {{totalISGAllocation}} M</span></div>
             </div>
             <table class="table table-left" id="ISGProduct" style="width: 95%;">
                 <thead>

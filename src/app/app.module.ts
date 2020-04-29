@@ -22,6 +22,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { AdobeAnalyticsService } from 'src/service/adobe-analytics.service';
 import { AllocateCommodityViewFrameComponent } from './set-target/allocate-commodities/allocate-commodity-view-frame/allocate-commodity-view-frame.component';
 import { AllocationPipe } from './set-target/allocate-commodities/allocation.pipe';
+import { SimulationManagerModule } from './simulation-manager/simulation-manager.module';
 
 @NgModule({
 
@@ -42,6 +43,7 @@ import { AllocationPipe } from './set-target/allocate-commodities/allocation.pip
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SimulationManagerModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ClarityModule,

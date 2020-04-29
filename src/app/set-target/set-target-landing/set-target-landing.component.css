@@ -42,7 +42,7 @@
 }
 
 .nav{
-    padding-left: 40% !important;
+    padding-left: 46% !important;
 }
 .nav, .nav .nav-item.active>.nav-link {
     box-shadow: 0 -1px 0 #26262B inset !important;
@@ -156,6 +156,9 @@ ng-multiselect-dropdown div.multiselect-dropdown .dropdown-btn .dropdown-up{
 
 .nav .nav-link.active {
     box-shadow: 0 -3px 0 #ffffff inset !important;
+    font-weight: bold !important;
+    font-family: 'Roboto';
+    font-size: 13px !important;
 }
 
 button .nav .nav-link.active, .nav .nav-link:hover {

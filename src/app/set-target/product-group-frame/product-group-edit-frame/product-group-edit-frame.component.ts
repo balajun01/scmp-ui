@@ -53,12 +53,18 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
   allocation: string;
   items: FormArray;
   totalAllocation = 0;
+  totalCSGRows = 0;
+  totalISGRows = 0;
+  previousSelectedISG = [];
+  previousSelectedCSG = [];
+  productGroupCSGId = [];
+  productGroupISGId = [];
   public CSGProductForm: FormGroup;
   public ISGProductForm: FormGroup;
   cancelModalMessage = 'Are you sure you want to cancel it ?';
   isCancel = true;
-  productCSGOriginal = [];
-  productISGOriginal = [];
+  productCSGArrayList = [];
+  productISGArrayList = [];
   isCancelModalOpened = false;
   totalCSGallocation = 0;
   totalISGallocation = 0;
@@ -92,7 +98,7 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
             for (let productGroup of this.savedProductGroupAllocationData) {
               if (productGroup.prodBuDesc === 'CSG') {
                 this.productGroupCSG.push(productGroup);
-              } else if(productGroup.prodBuDesc === 'ISG') {
+              } else if (productGroup.prodBuDesc === 'ISG') {
                 this.productGroupISG.push(productGroup);
               }
             }
@@ -179,8 +185,10 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
         this.csgNoRowAdded = true;
         this.isgNoRowAdded = true;
       } else {
-        this.allocationData['editable'] = false;
-        this.editEvent.emit(this.allocationData);
+        if (this.allocationData !== undefined) {
+          this.allocationData['editable'] = false;
+          this.editEvent.emit(this.allocationData);
+        }
         let obj = {
           "editClicked": false,
           "editable": false
@@ -197,47 +205,166 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
   cancelProductForm() {
     this.isCancelModalOpened = true;
   }
-  onISGSelect(item) {
-    for (let isg of this.productISGList) {
-      if (isg.prodGroupId == item.prodGroupId) {
-        isg.checked = true;
-        isg.isDisabled = true;
-        this.productISGCheckCounter++;
-        break;
+  onISGSelect(item, i) {
+
+    // for (let isg of this.productISGList) {
+    //   if (isg.prodGroupId == item.prodGroupId) {
+    //     isg.checked = true;
+    //     isg.isDisabled = true;
+    //     this.productISGCheckCounter++;
+    //     break;
+    //   }
+    // }
+
+    this.previousSelectedISG.push(item.prodGroupId)
+
+    for (let j = 0; j < this.productISGArrayList.length; j++) {
+      if (j == i) {
+        for (let k = 0; k < this.productISGArrayList[j].length; k++) {
+          if (this.productISGArrayList[j][k].prodGroupId == item.prodGroupId) {
+            this.productISGArrayList[j][k].checked = true;
+            this.productISGArrayList[j][k].isDisabled = false;
+            this.productISGCheckCounter++;
+            break;
+          }
+        }
+      } else {
+        let tem = [];
+        tem = tem.concat(this.productISGArrayList[j]);
+        for (let k = 0; k < tem.length; k++) {
+
+          if (tem[k].prodGroupId == item.prodGroupId) {
+            tem[k].checked = false;
+            tem[k].isDisabled = true;
+            break;
+          }
+        }
+        this.productISGArrayList[j] = [];
+        this.productISGArrayList[j] = this.productISGArrayList[j].concat(tem);
       }
+
     }
   }
 
-  onISGDeselect(item) {
-    for (let isg of this.productISGList) {
-      if (isg.prodGroupId == item.prodGroupId) {
-        isg.checked = false;
-        isg.isDisabled = false;
-        this.productISGCheckCounter--;
-        break;
+  onISGDeselect(item, i) {
+    // for (let isg of this.productISGList) {
+    //   if (isg.prodGroupId == item.prodGroupId) {
+    //     isg.checked = false;
+    //     isg.isDisabled = false;
+    //     this.productISGCheckCounter--;
+    //     break;
+    //   }
+    // }
+
+    this.previousSelectedISG = this.previousSelectedISG.filter(x => { x != item.prodGroupId });
+
+    for (let j = 0; j < this.productISGArrayList.length; j++) {
+      if (j == i) {
+        for (let k = 0; k < this.productISGArrayList[j].length; k++) {
+          if (this.productISGArrayList[j][k].prodGroupId == item.prodGroupId) {
+            this.productISGArrayList[j][k].checked = false;
+            this.productISGArrayList[j][k].isDisabled = false;
+            this.productISGCheckCounter--;
+            break;
+          }
+        }
+      } else {
+        let tem = [];
+        tem = tem.concat(this.productISGArrayList[j]);
+
+        for (let k = 0; k < tem.length; k++) {
+
+          if (tem[k].prodGroupId == item.prodGroupId) {
+            tem[k].checked = false;
+            tem[k].isDisabled = false;
+            break;
+          }
+        }
+        this.productISGArrayList[j] = [];
+        this.productISGArrayList[j] = this.productISGArrayList[j].concat(tem);
       }
+
     }
   }
 
-  onCSGSelect(item) {
-    for (let csg of this.productCSGList) {
-      if (csg.prodGroupId == item.prodGroupId) {
-        csg.checked = true;
-        csg.isDisabled = true;
-        this.productCSGCheckCounter++;
-        break;
+  onCSGSelect(item, i) {
+    // for (let csg of this.productCSGList) {
+    //   if (csg.prodGroupId == item.prodGroupId) {
+    //     csg.checked = true;
+    //     csg.isDisabled = true;
+    //     this.productCSGCheckCounter++;
+    //     break;
+    //   }
+    // }
+
+    this.previousSelectedCSG.push(item.prodGroupId)
+
+    for (let j = 0; j < this.productCSGArrayList.length; j++) {
+      if (j == i) {
+        for (let k = 0; k < this.productCSGArrayList[j].length; k++) {
+          if (this.productCSGArrayList[j][k].prodGroupId == item.prodGroupId) {
+            this.productCSGArrayList[j][k].checked = true;
+            this.productCSGArrayList[j][k].isDisabled = false;
+            this.productCSGCheckCounter++;
+            break;
+          }
+        }
+      } else {
+        let tem = [];
+        tem = tem.concat(this.productCSGArrayList[j]);
+        for (let k = 0; k < tem.length; k++) {
+
+          if (tem[k].prodGroupId == item.prodGroupId) {
+            tem[k].checked = false;
+            tem[k].isDisabled = true;
+            break;
+          }
+        }
+        this.productCSGArrayList[j] = [];
+        this.productCSGArrayList[j] = this.productCSGArrayList[j].concat(tem);
       }
+
     }
   }
 
-  onCSGDeselect(item) {
-    for (let csg of this.productCSGList) {
-      if (csg.prodGroupId == item.prodGroupId) {
-        csg.checked = false;
-        csg.isDisabled = false;
-        this.productCSGCheckCounter++;
-        break;
+  onCSGDeselect(item, i) {
+    // for (let csg of this.productCSGList) {
+    //   if (csg.prodGroupId == item.prodGroupId) {
+    //     csg.checked = false;
+    //     csg.isDisabled = false;
+    //     this.productCSGCheckCounter++;
+    //     break;
+    //   }
+    // }
+
+    this.previousSelectedCSG = this.previousSelectedCSG.filter(x => { x != item.prodGroupId });
+
+    for (let j = 0; j < this.productCSGArrayList.length; j++) {
+      if (j == i) {
+        for (let k = 0; k < this.productCSGArrayList[j].length; k++) {
+          if (this.productCSGArrayList[j][k].prodGroupId == item.prodGroupId) {
+            this.productCSGArrayList[j][k].checked = false;
+            this.productCSGArrayList[j][k].isDisabled = false;
+            this.productCSGCheckCounter--;
+            break;
+          }
+        }
+      } else {
+        let tem = [];
+        tem = tem.concat(this.productCSGArrayList[j]);
+
+        for (let k = 0; k < tem.length; k++) {
+
+          if (tem[k].prodGroupId == item.prodGroupId) {
+            tem[k].checked = false;
+            tem[k].isDisabled = false;
+            break;
+          }
+        }
+        this.productCSGArrayList[j] = [];
+        this.productCSGArrayList[j] = this.productCSGArrayList[j].concat(tem);
       }
+
     }
   }
 
@@ -274,11 +401,61 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
   }
 
   addCSGRow() {
+   
     this.csgNoRowAdded = false;
     this.valueChange.emit(true);
     this.CSGArr.push(this.initCSGRows());
     this.isCancel = false;
+  //  console.log("totalCSGRows",this.totalCSGRows);
+    if (this.totalCSGRows < 1) {
+      let tempDropdown = []
+      for (let pro of this.productCSGList) {
+        let value = {
+          "prodGroupId": pro.prodGroupId,
+          "prodGroupDescp": pro.prodGroupDescp,
+          "checked": false,
+          "isDisabled": false
+        }
+        tempDropdown.push(value);
+      }
+      if (this.editButtonClick) {
+        this.productCSGArrayList[this.productCSGArrayList.length] = tempDropdown;
+      } else {
+        this.productCSGArrayList[this.totalCSGRows] = tempDropdown;
+      }
+
+    } else {
+      let tempDropdown = []
+
+      for (let pro of this.productCSGList) {
+        if (this.previousSelectedCSG.indexOf(pro.prodGroupId) > -1) {
+          let value = {
+            "prodGroupId": pro.prodGroupId,
+            "prodGroupDescp": pro.prodGroupDescp,
+            "checked": false,
+            "isDisabled": true
+          }
+          tempDropdown.push(value);
+
+        } else {
+          let value = {
+            "prodGroupId": pro.prodGroupId,
+            "prodGroupDescp": pro.prodGroupDescp,
+            "checked": false,
+            "isDisabled": false
+          }
+          tempDropdown.push(value);
+        }
+      }
+      if (this.editButtonClick) {
+        this.productCSGArrayList[ this.productCSGArrayList.length] = tempDropdown;
+      } else {
+        this.productCSGArrayList[this.totalCSGRows] = tempDropdown;
+      }
+    }
+    this.totalCSGRows++;
   }
+
 
   onCSGChange(index, value) {
     this.CSGArr.value[index].CSGAllocation = value;
@@ -314,10 +491,59 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
   }
 
   addISGRow() {
+  
     this.isgNoRowAdded = false;
     this.valueChange.emit(true);
     this.ISGArr.push(this.initISGRows());
     this.isCancel = false;
+  
+    if (this.totalISGRows < 1) {
+      let tempDropdown = []
+      for (let pro of this.productISGList) {
+        let value = {
+          "prodGroupId": pro.prodGroupId,
+          "prodGroupDescp": pro.prodGroupDescp,
+          "checked": false,
+          "isDisabled": false
+        }
+        tempDropdown.push(value);
+      }
+      if (this.editButtonClick) {
+        this.productISGArrayList[this.productISGArrayList.length] = tempDropdown;
+      } else {
+        this.productISGArrayList[this.totalISGRows] = tempDropdown;
+      }
+
+    } else {
+      let tempDropdown = []
+
+      for (let pro of this.productISGList) {
+        if (this.previousSelectedISG.indexOf(pro.prodGroupId) > -1) {
+          let value = {
+            "prodGroupId": pro.prodGroupId,
+            "prodGroupDescp": pro.prodGroupDescp,
+            "checked": false,
+            "isDisabled": true
+          }
+          tempDropdown.push(value);
+
+        } else {
+          let value = {
+            "prodGroupId": pro.prodGroupId,
+            "prodGroupDescp": pro.prodGroupDescp,
+            "checked": false,
+            "isDisabled": false
+          }
+          tempDropdown.push(value);
+        }
+      }
+      if (this.editButtonClick) {
+        this.productISGArrayList[this.productISGArrayList.length] = tempDropdown;
+      } else {
+        this.productISGArrayList[this.totalISGRows] = tempDropdown;
+      }
+    }
+    this.totalISGRows++;
   }
 
   deleteCSGRow(index: number) {
@@ -333,6 +559,7 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
     }
     var tempCSG = this.CSGArr.value[index].productCSG;
     var csgAllocation = this.CSGArr.value[index].CSGAllocation;
+
     this.CSGArr.removeAt(index);
     if (this.CSGArr.length === 0 && this.ISGArr.length === 0) {
       if (this.editButtonClick) {
@@ -342,17 +569,39 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
       }
     }
 
+    // if (tempCSG !== null || tempCSG.length > 0) {
+    //   for (let temp of tempCSG) {
+    //     for (let csg of this.productCSGList) {
+    //       if (temp.prodGroupId == csg.prodGroupId) {
+    //         csg.checked = false;
+    //         csg.isDisabled = false;
+    //         this.productCSGCheckCounter--;
+    //         break;
+    //       }
+    //     }
+    //   }
+    // }
+
+    let deleteCSG = [];
     if (tempCSG !== null || tempCSG.length > 0) {
       for (let temp of tempCSG) {
-        for (let csg of this.productCSGList) {
-          if (temp.prodGroupId == csg.prodGroupId) {
-            csg.checked = false;
-            csg.isDisabled = false;
-            this.productCSGCheckCounter--;
-            break;
-          }
+        deleteCSG.push(temp.prodGroupId);
+      }
+    }
+
+    for (let j = 0; j < this.productCSGArrayList.length; j++) {
+      let tem = [];
+      tem = tem.concat(this.productCSGArrayList[j]);
+
+      for (let k = 0; k < tem.length; k++) {
+
+        if (deleteCSG.indexOf(tem[k].prodGroupId) > -1) {
+          tem[k].checked = false;
+          tem[k].isDisabled = false;
         }
       }
+      this.productCSGArrayList[j] = [];
+      this.productCSGArrayList[j] = this.productCSGArrayList[j].concat(tem);
     }
     this.CSGProductForm.markAsDirty();
     this.totalAllocation = this.totalAllocation - csgAllocation;
@@ -383,18 +632,40 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
       }
     }
 
+    // if (tempISG !== null || tempISG.length > 0) {
+    //   for (let temp of tempISG) {
+    //     for (let isg of this.productISGList) {
+    //       if (temp.prodGroupId == isg.prodGroupId) {
+    //         isg.checked = false;
+    //         isg.isDisabled = false;
+    //         this.productISGCheckCounter++;
+    //         break;
+    //       }
+    //     }
+    //   }
+    // }
+    let deleteISG = [];
     if (tempISG !== null || tempISG.length > 0) {
       for (let temp of tempISG) {
-        for (let isg of this.productISGList) {
-          if (temp.prodGroupId == isg.prodGroupId) {
-            isg.checked = false;
-            isg.isDisabled = false;
-            this.productISGCheckCounter++;
-            break;
-          }
-        }
+        deleteISG.push(temp.prodGroupId);
       }
     }
+
+    for (let j = 0; j < this.productISGArrayList.length; j++) {
+      let tem = [];
+      tem = tem.concat(this.productISGArrayList[j]);
+
+      for (let k = 0; k < tem.length; k++) {
+
+        if (deleteISG.indexOf(tem[k].prodGroupId) > -1) {
+          tem[k].checked = false;
+          tem[k].isDisabled = false;
+        }
+      }
+      this.productISGArrayList[j] = [];
+      this.productISGArrayList[j] = this.productISGArrayList[j].concat(tem);
+    }
+
     this.ISGProductForm.markAsDirty();
     this.totalAllocation = this.totalAllocation - isgAllocation;
     this.totalAllocation = parseFloat(this.totalAllocation.toFixed(4));
@@ -464,7 +735,7 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
         allocatedDataList.push(productGroupAllocation);
       }
     }
-    if(this.CSGArr.value.length==0 && this.ISGArr.value.length==0){
+    if (this.CSGArr.value.length == 0 && this.ISGArr.value.length == 0) {
       productGroupAlloc = new ProductGroupAllocation();
       productGroupAlloc.allocateBuId = 0;
       productGroupAlloc.amountAllocated = 0;
@@ -482,7 +753,7 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
       productGroupAlloc.prodGrpDesc = "";
       allocatedDataList.push(productGroupAlloc);
     }
-    console.log("allocatedDataList",allocatedDataList);
+
     this.productGroupEditFrameService.updateproductGroupData(allocatedDataList)
       .subscribe(data => {
         data['editable'] = editable;
@@ -533,6 +804,9 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
     this.isCancel = false;
     this.isgNoRowAdded = false;
     this.csgNoRowAdded = false;
+    let productISGEditTemp = [];
+    let productCSGEditTemp = [];
+
     let i = 0;
     let j = 0;
 
@@ -541,6 +815,7 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
       if (element.prodBuDesc === 'CSG') {
         this.totalAllocation = element.total;
         this.totalCSGallocation = element.buTotal;
+
         //prodGrpId coming from DB
         let elementArray = element.prodGrpId.split(',');
         let productGroupTemp = [];
@@ -553,15 +828,55 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
                 "prodBuId": csg.prodBuId,
                 "prodBuDesc": csg.prodBuDesc
               }
+              productCSGEditTemp.push(csg.prodGroupId);
+              this.previousSelectedCSG.push(csg.prodGroupId);
               productGroupTemp.push(csgTemp);
-            }
-            if (element == csg.prodGroupId) {
-              csg.checked = true;
-              csg.isDisabled = true;
               this.productCSGCheckCounter++;
-              break;
+              this.totalCSGRows++;
+            }
+            // if (element == csg.prodGroupId) {
+            //   csg.checked = true;
+            //   csg.isDisabled = true;
+            //   this.productCSGCheckCounter++;
+            //   break;
+            // }
+          }
+        }
+        let newArray = [];
+        for (let csg of this.productCSGList) {
+          if (elementArray.indexOf(csg.prodGroupId) > -1) {
+            let temp = {
+              "prodGroupId": csg.prodGroupId,
+              "prodGroupDescp": csg.prodGroupDescp,
+              "checked": true,
+              "isDisabled": false
+            }
+            newArray.push(temp);
+          } else {
+            let temp = {
+              "prodGroupId": csg.prodGroupId,
+              "prodGroupDescp": csg.prodGroupDescp,
+              "checked": false,
+              "isDisabled": false
+            }
+            newArray.push(temp);
+          }
+        }
+
+        this.productCSGArrayList.push(newArray);
+
+        for (let j = 0; j < this.productCSGArrayList.length; j++) {
+          let tem = [];
+          tem = tem.concat(this.productCSGArrayList[j]);
+
+          for (let k = 0; k < tem.length; k++) {
+
+            if (productCSGEditTemp.indexOf(tem[k].prodGroupId) > -1 && !tem[k].checked) {
+              tem[k].isDisabled = true;
             }
           }
+          this.productCSGArrayList[j] = [];
+          this.productCSGArrayList[j] = this.productCSGArrayList[j].concat(tem);
         }
 
         const control = this.formBuilder.group({
@@ -591,21 +906,64 @@ export class ProductGroupEditFrameComponent implements OnInit, OnChanges {
 
               }
               productGroupTemp.push(isgTemp);
-            }
-            if (val === ele.prodGroupId) {
-              ele.checked = true;
-              ele.isDisabled = true;
+              productISGEditTemp.push(ele.prodGroupId);
+              this.previousSelectedISG.push(ele.prodGroupId);
               this.productISGCheckCounter++;
-              break;
+              this.totalISGRows++;
             }
+            // if (val === ele.prodGroupId) {
+            //   ele.checked = true;
+            //   ele.isDisabled = true;
+            //   this.productISGCheckCounter++;
+            //   break;
+            // }
+
           }
         }
+        let newArray = [];
+        for (let isg of this.productISGList) {
+          if (elementArray.indexOf(isg.prodGroupId) > -1) {
+            let temp = {
+              "prodGroupId": isg.prodGroupId,
+              "prodGroupDescp": isg.prodGroupDescp,
+              "checked": true,
+              "isDisabled": false
+            }
+            newArray.push(temp);
+          } else {
+            let temp = {
+              "prodGroupId": isg.prodGroupId,
+              "prodGroupDescp": isg.prodGroupDescp,
+              "checked": false,
+              "isDisabled": false
+            }
+            newArray.push(temp);
+          }
+        }
+
+        this.productISGArrayList.push(newArray);
+
+        for (let j = 0; j < this.productISGArrayList.length; j++) {
+          let tem = [];
+          tem = tem.concat(this.productISGArrayList[j]);
+
+          for (let k = 0; k < tem.length; k++) {
+
+            if (productISGEditTemp.indexOf(tem[k].prodGroupId) > -1 && !tem[k].checked) {
+              tem[k].isDisabled = true;
+            }
+          }
+          this.productISGArrayList[j] = [];
+          this.productISGArrayList[j] = this.productISGArrayList[j].concat(tem);
+        }
+
         const control = this.formBuilder.group({
           productISG: [productGroupTemp, [Validators.required]],
           ISGAllocation: [element.amountAllocated, [Validators.required]]
         });
         this.ISGArr.push(control);
         j++;
+
       }
     });
 

@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import {HttpClient } from '@angular/common/http';
 import * as data from './allocate-commodity-view-frame/data.json';
 import { Observable, of } from 'rxjs';
+import { AllocationdataModel } from './AllocationdataModel';
 
 @Injectable({
   providedIn: 'root'
@@ -23,18 +24,26 @@ export class AllocateCommoditiesService {
 }
 
 getSelectType() {
-  return this.http.get(this.baseURL + "commodities/allocation-types");
-  
+  return this.http.get(this.baseURL + "commodities/allocation-types");  
 }
 getBUProductItems(){
   return this.http.get(this.baseURL);
 }
 
-getCommodityAllocation() {
-  return of(data);
+getCancelCommodityAllocation(targetId:string) {
+  console.log("URL "+this.baseURL + "set-targets/commodity-allocation/"+targetId);
+   return this.http.get(this.baseURL + "set-targets/commodity-allocation/"+targetId);
 }
 
-saveCommodityAllocation(): Observable<any> {
-  return of(data);
-}
+saveCommodityAllocation(commodityAllocationDataModel: AllocationdataModel): Observable<any> {
+  if(commodityAllocationDataModel.buAllocation.hasOwnProperty('editable')) {
+    delete commodityAllocationDataModel.buAllocation['editable'];
+    }
+    return of(commodityAllocationDataModel);
+  }
+  getSavedProductGroupAllocation(targetId) {
+    console.log(" frame 2 products"+ targetId+ " URL "+this.baseURL + 'set-targets/bu-allocation/' + targetId);
+
+    return this.http.get(this.baseURL + 'set-targets/bu-allocation/' + targetId);
+  }
 }

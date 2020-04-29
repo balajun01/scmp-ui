@@ -9,13 +9,13 @@
 
     .save { height: 32px; width: 90px; } 
 
-    .container { height: 782px; width: 1140px; background-color: #373845; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2); margin-right: 50px;margin-top: 50px;} 
+    .container { height: 782px; width: 100%; background-color: #373845; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2); margin-right: 50px;margin-top: 50px;} 
 
 
 .divider {
     height: 1px;
-    width: 1135px;
-    opacity: 0.5;
+    width: 100%;
+    opacity: 1;
     background-color: #656677;
   }
 .commodity-allocation {
@@ -187,6 +187,14 @@ ng-multiselect-dropdown div.multiselect-item-checkbox input[type=checkbox]{
 ng-multiselect-dropdown li.multiselect-item-checkbox input[type=checkbox]+ div:before {
     border: 2px solid #f3f3f3 !important;
    
+}
+
+.multiselectdropdown1{
+  background-image: 'assets/images/Delete.svg';
+  border-radius: 1px !important;
+  overflow: auto !important;
+  font-family: 'Roboto';
+  height: 30px !important ;    
 }
 
 ng-multiselect-dropdown  div.dropdown-list .filter-textbox input{
@@ -475,7 +483,7 @@ table#maintable,  tr {
     color: #fafafa;
   }
   .commodityAllocationBody {
-    width:180px;
+    width: 180px;;
     display: flex;
   }
   .commodityAllocationSpan{
@@ -485,8 +493,8 @@ table#maintable,  tr {
     margin: 5px;
   }
   .commodityGrpDesc{
-    vertical-align: text-top; 
-    text-align: left; 
+    vertical-align: text-top !important; 
+    text-align: left;
     min-width: 180px;
     white-space: nowrap;
   }

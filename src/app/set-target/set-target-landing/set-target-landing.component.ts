@@ -78,17 +78,18 @@ export class SetTargetLandingComponent implements OnInit {
 
   checkIfDraftModeExist() {
     this.setTargetService.getDraftMode().subscribe(data => {
-      console.log("Draft Mode", data);
-      this.existingValue = data;
-      if (this.existingValue["status"] == 'In Progress') {
-        this.targetIdForQuarters = this.existingValue["targetId"];
-        this.targetIdQuarters=this.targetIdForQuarters[0];
-      
-        this.cpMonth = this.existingValue["cpMonthId"].toString();
-        this.cpMonthId = this.existingValue["cpMonthId"].toString();
-        this.targetMethod = this.existingValue["targetMthdId"].toString();
-        this.releaseQuarter = [];
-        let prevArray = this.existingValue["releaseQuarter"];
+    
+      this.previousValue = data;
+      if (this.previousValue["status"] == 'In Progress') {
+        this.updateCounter++;
+        this.releaseQuarter=[];
+        let pushArray = [];
+        this.targetIdForQuarters = this.previousValue["targetId"];
+        this.targetIdQuarters = this.targetIdForQuarters[0];
+
+        this.cpMonth = this.previousValue["cpMonthId"].toString();
+        this.cpMonthId = this.previousValue["cpMonthId"].toString();
+        let prevArray = this.previousValue["releaseQuarter"];
         this.draftModeReleaseQuarter = [];
         for (let i = 0; i < prevArray.length; i++) {
           let value = {
@@ -100,10 +101,38 @@ export class SetTargetLandingComponent implements OnInit {
           this.releaseQuarter.push(value);
           this.draftModeReleaseQuarter.push(value);
         }
+        for (let i = 0; i < this.quarterListFull.length; i++) {
+          if (this.cpMonthId == this.quarterListFull[i].monthId) {
+            let obj1 = {
+              'releaseQuarterId': this.quarterListFull[i].releaseQuarterId,
+              'releaseQuarter': this.quarterListFull[i].releaseQuarter
+            }
+            let obj2 = {
+              'releaseQuarterId': this.quarterListFull[i].nextQuarterId,
+              'releaseQuarter': this.quarterListFull[i].nextQuarter
+            }
+           
+            pushArray.push(obj1);
+            pushArray.push(obj2);
+          }
+
+        }
+        for (let arr of prevArray) {
+          for (let qtr of pushArray) {
+            console.log("arr",arr);
+            if (arr.releaseQtrId === qtr.releaseQuarterId) {
+              qtr["checked"] = true;
+              console.log("qtr",qtr);
+            }
+          }
+        }
+        this.quarterList = pushArray;
+        console.log(" this.quarterList",this.quarterList);
+        this.multiSelect.options = this.quarterList;
+        this.targetMethod = this.previousValue["targetMthdId"].toString();
         this.updateClicked = true;
-        this.quarterList = this.draftModeReleaseQuarter;
-        this.quarterTab = this.draftModeReleaseQuarter;
-        this.multiSelect.options = this.draftModeReleaseQuarter;
+        this.quarterList = this.releaseQuarter;
+        this.quarterTab = this.releaseQuarter;
         this.multiSelect.checkedList = this.draftModeReleaseQuarter;
         this.onTabChange(this.releaseQuarter[0].releaseQuarterId, this.targetIdForQuarters[0], 0);
       }
@@ -139,6 +168,7 @@ export class SetTargetLandingComponent implements OnInit {
   }
 
   generateTargetAllocations() {
+    //this.quarterTab = [];
     this.updateCounter++;
     this.updateData = false;
     var updateObject = new FiscalDataDTO();
@@ -337,12 +367,14 @@ export class SetTargetLandingComponent implements OnInit {
   }
 
   showEdit(item: any) {
+    console.log("edit", item);
     this.allocationData = item;
-    this.editable = this.allocationData.editable;
+    console.log(this.allocationData);
+    this.editable = this.allocationData.editable;  
     //  this.editable=item;
   }
 
-  showCommodityEdit(item: any){
+  showCommodityEdit(item: any) {
     this.commodityAllocationList = item;
     this.editable = this.commodityAllocationList.editable;
     this.commodityViewMode = this.commodityAllocationList.commodityViewMode;
@@ -380,7 +412,7 @@ export class SetTargetLandingComponent implements OnInit {
   onTabChange(releaseQuarterId: any, targetId: any, index: number) {
     this.indexOfTab = index;
     this.targetIdQuarters = targetId;
-    this.editButtonClick = false
+    this.editButtonClick = false;
     this.setTargetService.getStartAndEndDate(this.systemDate, this.cpMonthId, releaseQuarterId).subscribe(data => {
       this.startDate = data['startDate'];
       this.endDate = data['endDate'];

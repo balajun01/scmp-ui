@@ -36,6 +36,8 @@
     margin-right: 0.2rem;
     color: #fff;
     border-style: solid;
+    font-family: 'Roboto';
+    font-size: 14px;
 }
 
 .select-content{

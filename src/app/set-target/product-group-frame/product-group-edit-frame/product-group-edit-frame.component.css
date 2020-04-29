@@ -18,6 +18,12 @@
  margin-bottom: 2%;
 }
 
+.product-allocation{
+    font-family: 'Roboto' !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
 .dropdown-list ul {
     max-height: 110px !important;
 }

@@ -71,9 +71,11 @@
                     <clr-tab *ngFor="let qtr of quarterTab;index as index;">
                         <button clrTabLink id="{{qtr.releaseQuarterId}}" [disabled]="qtr.disabled"
                             (click)="onTabChange(qtr.releaseQuarterId,targetIdForQuarters[index],index)">{{qtr.releaseQuarter}}</button>
+                            
                         <ng-template [(clrIfActive)]="qtr.active">
                             <clr-tab-content id="tab">
                                 <!-- frame product group -->
+                                <!-- <div style="float: right;color: white;">{{targetIdForQuarters[index]}}</div> -->
                                 <app-product-group-edit-frame *ngIf="editableMode" [startDate]="startDate"
                                     [endDate]="endDate" [targetIdQuarter]="targetIdQuarters"
                                     [allocationData]='allocationData' [quarter]="qtr.releaseQuarter"
@@ -86,14 +88,15 @@
                                     [targetIdQuarter]="targetIdQuarters" (valueChange)="changeInEditScreen($event)"
                                     (editTabSwitch)="enableEditMode($event)" (editEvent)="showEdit($event)">
                                 </app-product-group-view-frame>
-                                <app-allocate-commodities *ngIf="!editable" 
-                                    [allocationData]='allocationData'
+                                <app-allocate-commodities *ngIf="!editableMode && !commodityViewMode" 
                                     [commodityAllocationList]='commodityAllocationList'
-                                    (editEvent)="showCommodityEdit($event)">
+                                    (editEvent)="showCommodityEdit($event)"  [quarterId]="qtr.releaseQuarterId" [targetIdQuarter]="targetIdQuarters"
+                                    (valueChange)="changeInEditScreen($event)">
                                 </app-allocate-commodities>
-                                <app-allocate-commodity-view-frame *ngIf="commodityViewMode"
+                                <app-allocate-commodity-view-frame *ngIf="!editableMode && commodityViewMode"
                                     [commodityAllocationList]='commodityAllocationList'
-                                    (editEvent)="showCommodityEdit($event)"></app-allocate-commodity-view-frame>
+                                    (editEvent)="showCommodityEdit($event)" [targetIdQuarter]="targetIdQuarters" (valueChange)="changeInEditScreen($event)">
+                                </app-allocate-commodity-view-frame>
                             </clr-tab-content>
                         </ng-template>
                     </clr-tab>
@@ -106,8 +109,8 @@
 </div>
 <!-- on second update click popup -->
 <clr-modal [(clrModalOpen)]="enableUpdatePopUp">
-    <div class="modal-body">Are you sure you want to change <span *ngIf="cpMonthRelease">CP month / </span><span
-            *ngIf="releaseQuarterChanged || cpMonthRelease"> Release quarter /</span><span
+    <div class="modal-body">Are you sure you want to change <span *ngIf="cpMonthRelease">CP month </span><span
+            *ngIf="releaseQuarterChanged || cpMonthRelease"> Release quarter </span><span
             *ngIf="targetMethodChanged">Target method</span> ?</div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="retainOriginalValue()">No</button>
