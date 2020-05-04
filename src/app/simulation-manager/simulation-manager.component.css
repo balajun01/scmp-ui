@@ -27,3 +27,51 @@
     font-family: 'Roboto';
     width: 120px !important;
 }
+.divider {
+    height: 1px;
+    width: 1300px;
+    opacity: 0.5;
+    background-color: #656677;
+  }
+.table {
+    background-color: #373845;
+    border: none !important;
+    color: #FFFFFF;
+}
+
+.btn-primary {
+    background-color: #0076CE;
+    border-color: #0076CE;
+    margin-top: 1.5rem;
+    color: #FFFFFF;
+    float: right;
+    margin-right: 0px;
+}
+.table thead th {
+    background-color: #373845 !important;
+}
+.table thead tr th.table-title {
+    background-color:#26262B !important;
+}
+.table td{
+    font-size: 0.45rem;;
+}
+.simulation-header {
+        text-align: left;
+        color: #FFFFFF;
+        font-family: Roboto;
+        font-size: 24px;
+        font-weight: 300;
+        letter-spacing: 0;
+        line-height: 32px;
+}
+  .table td .bottom-border {
+    border: 1px solid #656677;
+}
+
+.table input.search {
+    color: #808080;
+    border: none;
+    background: none;
+    border-bottom: 1px solid #FFFFFF;
+}

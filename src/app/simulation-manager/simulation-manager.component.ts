@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 export class SimulationManagerComponent implements OnInit {
 
   systemDate: string;
+  showIndex:number|null = null;
+  childIndex:number|null = null;
+
 
   constructor(private router: Router) { }
 
@@ -20,5 +23,13 @@ export class SimulationManagerComponent implements OnInit {
   navigateToSetTargets() {
     this.router.navigate(['']);
   }
+  showTargetDetails(i: number) {
+    this.showIndex = (this.showIndex ==i)? null: i;
+  }
+  
+  showCommodityDetails(j: number) {
+    this.childIndex = (this.childIndex ==j)? null: j;
+  }
+
 
 }
