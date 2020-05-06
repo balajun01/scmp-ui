@@ -53,8 +53,8 @@
 .table thead tr th.table-title {
     background-color:#26262B !important;
 }
-.table td{
-    font-size: 0.45rem;;
+.table td, p {
+    font-size: 0.45rem;
 }
 .simulation-header {
         text-align: left;
@@ -74,4 +74,36 @@
     border: none;
     background: none;
     border-bottom: 1px solid #FFFFFF;
+}
+
+.dropdown-menu {
+    background-color: #4A4A52;
+    border: 1px solid #4A4A52;
+    color:#FFFFFF;
+}
+.dropdown-menu .btn {
+    color:#FFFFFF;
+}
+.btn-group {
+    margin-right: 0px !important;
+    float: right;
+}
+.clr-input {
+    font-weight: 300;
+}
+.searchIcon {
+    position: absolute;
+    margin: 2.2em 0 0 4.1em;
+    color: #41B6E6;
+}
+.tooltip .tooltip-content.tooltip-bottom-left,
+.tooltip .tooltip-content.tooltip-bottom-right,
+.tooltip.tooltip-bottom-left>.tooltip-content,
+.tooltip.tooltip-bottom-right>.tooltip-content {
+    background-color: #4A4A52;
+    color: #FFFFFF;
+}
+.tooltip .tooltip-content.tooltip-lg,
+.tooltip.tooltip-lg>.tooltip-content {
+    width: 20rem;
 }

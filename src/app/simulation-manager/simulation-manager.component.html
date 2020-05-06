@@ -36,13 +36,14 @@
                     <th colspan="8">
                         <h3 class="simulation-header">Simulation Manager</h3>
                     </th>
-                    <th>  
-                        <input clrInput type="text" class="clr-input" name="search" placeholder="Search" />
+                    <th>
+                        <clr-icon class="searchIcon" shape="search" size="16"></clr-icon>
+                        <input clrInput type="text" class="clr-input" name="search" placeholder="Search" size="15"/>
                         
                     </th>
                     <th>
                         <button class="btn btn-sm btn-inverse">
-                            <clr-icon shape="filter-grid" size="16"></clr-icon>
+                            <clr-icon shape="filter-grid" size="20"></clr-icon>
                             Filter
                         </button>
                     </th>
@@ -54,7 +55,14 @@
                     <th class="table-title">Part <br>Commodity</th>
                     <th class="table-title">BU</th>
                     <th class="table-title">Product<br> Group</th>
-                    <th class="table-title">Simulation<br> Status</th>
+                    <th class="table-title">Simulation<br> Status
+                        <clr-tooltip>
+                            <clr-icon clrTooltipTrigger shape="info-circle" size="16" aria-label="Uniq tooltip 1"></clr-icon>
+                            <clr-tooltip-content clrPosition="bottom-left" clrSize="lg" *clrIfOpen>
+                                <span>Not Started - In Progress - Approved (1/2) - Approved (2/2) - Uploaded </span>
+                            </clr-tooltip-content>
+                        </clr-tooltip>
+                    </th>
                     <th class="table-title">Target<br> Release($M)</th>
                     <th class="table-title">Simulated<br> Release($M)</th>
                     <th class="table-title">Version</th>
@@ -76,7 +84,19 @@
                     <td>In Progress</td>
                     <td>(10)</td>
                     <td>(10)</td>
-                    <td>-</td>
+                    <td> -
+                        <div class="btn-group">
+                            <div class="btn-group-overflow open">
+                                <button class="btn btn-link dropdown-toggle">
+                                    <clr-icon shape="ellipsis-vertical" style="color: #FFFFFF;"></clr-icon>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button class="btn">Edit Target</button>
+                                    <button class="btn">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 <!-- <tr *ngIf="showIndex === 1">
                     <td colspan="2"></td>
@@ -120,6 +140,7 @@
                     <td>(10)</td>
                     <td>(1)</td>
                     <td>v4</td>
+                    <td></td>
                 </tr>
                 <tr *ngIf="childIndex === 1" style="background-color: #656677;">
                     <td colspan="6"></td>
@@ -127,6 +148,7 @@
                     <td>(10)</td>
                     <td>(1)</td>
                     <td>v3</td>
+                    <td></td>
                 </tr>
                 <tr *ngIf="childIndex === 1" style="background-color: #656677;">
                     <td colspan="6"></td>
@@ -134,6 +156,7 @@
                     <td>(10)</td>
                     <td>(1)</td>
                     <td>v2</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td><clr-icon shape="caret right"></clr-icon>08-16-2019-001</td>
@@ -149,6 +172,7 @@
                 </tr>          
             </tbody>
         </table>
+        <p>Showing 05 of 05 results</p>
         </div>
     </div>
 </div>
